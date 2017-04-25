@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>resource-manager</module>
+        <module>crawler-core</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -19,8 +19,8 @@ import java.util.*;
 /**
  * Created by dangqihe on 2017/3/17.
  */
-public class MongoDbUtil {
-    private static Logger logger = LoggerFactory.getLogger(MongoDbUtil.class);
+public class MongoDB {
+    private static Logger logger = LoggerFactory.getLogger(MongoDB.class);
 
     public static MongoCollection<Document> getCollection(String collectionName) throws UnknownHostException {
         return  MongoManagerFactory.getInstance().getDatabase().getCollection(collectionName);
@@ -29,21 +29,21 @@ public class MongoDbUtil {
     public static Set<String> indexSet = new HashSet<String>();
     /**
      * 查询单个,按主键查询
-     * <br>------------------------------<br>
-     * @param id
-     * @param collectionName
-     * @return
-     * @throws UnknownHostException
      */
-    public static DBObject findById(String queryId,String id, String collectionName) throws UnknownHostException {
+    public static DBObject find( String collectionName,String queryId,String value) {
         long start = System.currentTimeMillis();
         Map<String, Object> map = new HashMap<String, Object>();
         if("_id".equals(queryId))
-            map.put(queryId, new ObjectId(id));
+            map.put(queryId, new ObjectId(value));
         else
-            map.put(queryId, id);
-        DBObject result = findOne(map, collectionName);
-        logger.debug("findById:"+collectionName+"<<"+queryId+"="+id +"|time:"+(System.currentTimeMillis()-start));
+            map.put(queryId, value);
+        DBObject result;
+        try {
+             result = findOne(map, collectionName);
+        }catch (UnknownHostException e){
+            return null;
+        }
+        logger.debug("findById:"+collectionName+"<<"+queryId+"="+value +"|time:"+(System.currentTimeMillis()-start));
         return result;
     }
 
@@ -143,10 +143,10 @@ public class MongoDbUtil {
         logger.debug("insert:"+collectionName+"|size:"+document.size()+"|time:"+(System.currentTimeMillis()-start));
     }
 
-    public static void insertList(List<DBObject> dbObjectList, String collectionName) throws UnknownHostException {
+    public static void insertList( String collectionName,List<Document> documentList) throws UnknownHostException {
         long start = System.currentTimeMillis();
-        getCollection(collectionName).insertMany(convertDocuments(dbObjectList));
-        logger.debug("insertList:"+collectionName+"|listSize:"+dbObjectList.size()+"|time:"+(System.currentTimeMillis()-start));
+        getCollection(collectionName).insertMany(documentList);
+        logger.debug("insertList:"+collectionName+"|listSize:"+documentList.size()+"|time:"+(System.currentTimeMillis()-start));
     }
 
     public static void updateObject(String collectionName,String key ,String uId,String status)throws UnknownHostException {
@@ -298,8 +298,8 @@ public class MongoDbUtil {
     public static void main(String[] args) throws UnknownHostException {
         Document map = new Document();
         map.put("name","test1");
-        BasicDBObject a = findOne(map, "test");
-        System.out.println(a.get("name"));
+         insert(map, "test");
+       // System.out.println(a.get("name"));
 //        Mongo mg = new Mongo("localhost",27017);
 //        DB db = mg.getDB("dangDB");
 //        for(String s:db.getCollectionNames()){

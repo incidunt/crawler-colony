@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yy-MM-dd.HH:mm:ss.SSS} [%-16t] %-5p %-22c{1} %X{ServiceId} - %m%n"/>
+        </layout>
+    </appender>
+
+
+    <appender name="detail" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="/export/log/crawler_core/logic.log"/>
+        <param name="Append" value="false"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="threshold" value="DEBUG"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yy-MM-dd.HH:mm:ss.SSS} [%-16t] %-5p %-22c{1} %X{ServiceId} - %m%n"/>
+        </layout>
+    </appender>
+
+    <!-- 根logger的设置 -->
+    <root>
+        <level value="info"/>
+        <appender-ref ref="console"/>
+        <appender-ref ref="detail"/>
+    </root>
+</log4j:configuration>
