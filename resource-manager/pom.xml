@@ -220,7 +220,7 @@
     <!--编译 -->
     <build>
         <defaultGoal>package</defaultGoal>
-        <finalName>resource</finalName>
+        <finalName>resource-manage</finalName>
         <resources>
             <resource>
                 <directory>src/main/java</directory>
