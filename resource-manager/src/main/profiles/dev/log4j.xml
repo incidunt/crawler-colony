@@ -23,7 +23,6 @@
 	<!-- 根logger的设置 -->
 	<root>
 		<level value="info" />
-		<appender-ref ref="console" />
-		<appender-ref ref="resource_manager" />
+		<appender-ref ref="logic" />
 	</root>
 </log4j:configuration>
