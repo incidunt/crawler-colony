@@ -47,7 +47,7 @@ public class Jsoup {
     public static Base jsoup(String jsoup, Elements elements) {
         Elements result = null;
         for(Element element:elements){
-            if(elements==null){
+            if(result==null){
                 elements = Jsoup.jsoup(jsoup, element);
             } else{
                 elements.addAll(Jsoup.jsoup(jsoup,element));

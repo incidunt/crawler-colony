@@ -5,8 +5,6 @@ import com.dang.crawler.core.fetcher.bean.ProxyInfo;
 import com.dang.crawler.core.fetcher.bean.Request;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
@@ -20,6 +18,15 @@ import java.util.concurrent.ConcurrentLinkedDeque;
  */
 public class WebService {
     private  static  Logger logger = LoggerFactory.getLogger(WebService.class);
+    public static WebDriver getwebDriver(){
+        System.setProperty(
+                "webdriver.chrome.driver",
+                "D:\\Files\\MyCode\\USE\\chromedriver_win32\\chromedriver.exe");
+        // 创建一个 ChromeDriver 的接口，用于连接 Chrome
+        // 创建一个 Chrome 的浏览器实例
+        WebDriver driver = new ChromeDriver();
+        return driver;
+    }
     public static Base phantomjs(Request request, ProxyInfo proxyInfo){
         logger.info("get:"+request.getUrl());
         DesiredCapabilities caps = new DesiredCapabilities();

@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ExampleForFireFox  {
     public static void main(String[] args) {
         // 如果你的 FireFox 没有安装在默认目录，那么必须在程序中设置
-    	System.setProperty("webdriver.firefox.bin", "D:\\Program Files\\Mozilla Firefox\\firefox.exe");
+    	System.setProperty("webdriver.firefox.bin", "D:\\软件库\\浏  火狐浏览器区\\firefox.exe");
         // 创建一个 FireFox 的浏览器实例
         WebDriver driver = new FirefoxDriver();
 

@@ -1,36 +1,73 @@
 package com.dang.crawler.core.script;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.dang.colony.resources.mongodb.MongoDB;
+import com.dang.colony.resources.utils.DateUtils;
+import com.dang.colony.resources.utils.FileUtils;
 import com.dang.crawler.core.bean.Base;
-import com.dang.crawler.core.fetcher.PageService;
 import com.dang.crawler.core.fetcher.WebService;
-import com.dang.crawler.core.fetcher.bean.Page;
-import com.dang.crawler.core.fetcher.bean.Request;
-import com.dang.crawler.core.fetcher.service.Fetcher;
-
-import java.io.IOException;
+import com.dang.crawler.core.fetcher.file.Downloader;
+import org.bson.Document;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by duang on 2017/4/27.
  */
 public class SinaWeibao {
-    public static void main(String []args) throws Exception {
-        Request request = new Request("http://www.baidu.com");
-        request.getHeader().put("Accept","*/*");
-        request.getHeader().put("Accept-Encoding","zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
-        request.getHeader().put("Accept-Connection","keep-alive");
-        request.getHeader().put("Content-Type","application/x-www-form-urlencoded");
-        //request.getHeader().put("Host","weibo.com");
-        //request.getHeader().put("Referer","http://weibo.com/u/5616413326?topnav=1&wvr=6&topsug=1&is_hot=1");
-        request.getHeader().put("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0");
-        //request.getHeader().put("X-Requested-With","XMLHttpRequest");
-//        request.getHeader().put("Cookie","\t\n" +
-//                "SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9W5RghEHUxPnrZ.sW1CVRf5j5JpX5KMhUgL.Foz7Soe71KME1Kz2dJLoIpjLxK-L1h-L1-2LxK-LB-qL12eLxKnLBoBLBo-t\n" +
-//                "; SINAGLOBAL=4498515172177.254.1493224497978; ULV=1493307080395:3:3:3:9396276144286.68.1493307079809\n" +
-//                ":1493303379891; SCF=AkXJ9Bqytrc-KJ6CSCt1hXwYgo1l4m_ICth824G-nMMFlZFunTGOK_cyS5vyQbGrOyYHCQ6VDgVrXV2UCUD6YhA\n" +
-//                ".; SUHB=0M2UObSgaCRDiN; ALF=1524843066; un=dangfugui@163.com; UOR=,,login.sina.com.cn; YF-Page-G0=0dccd34751f5184c59dfe559c12ac40a\n" +
-//                "; SUB=_2A250Bn7vDeThGeRO7VER-SnOwj6IHXVXctcnrDV8PUNbmtBeLU2lkW9bD-GpJY1Fnha6lOAkZZGMdh9puA..; SSOLoginState\n" +
-//                "=1493307071; _s_tentry=login.sina.com.cn; Apache=9396276144286.68.1493307079809");
-        Base base = WebService.phantomjs(request, null);
-        System.out.println(base.getStringList().get(0));
+    public static void main(String []args) throws InterruptedException {
+        System.out.println(System.getProperty("user.dir"));//user.dir指定了当前的路径
+        String jsonPath = System.getProperty("user.dir") + "\\crawler-core\\src\\main\\java\\com\\dang\\crawler\\core\\script\\" + "weibo_user.txt";
+        String json= FileUtils.getString(jsonPath);
+        JSONArray array = JSONObject.parseArray(json);
+        for(int i =0;i<array.size();i++){
+            JSONObject  jsonObject=  JSONObject.parseObject(array.getString(i));
+            String name = jsonObject.getString("name");
+            String userId = jsonObject.getString("user");
+            System.out.println("==========================================================================="+i);
+            try {
+                getOneUser(userId);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+            Thread.sleep(10000);
+        }
+    }
+    public static void getOneUser(String userID) throws InterruptedException, UnknownHostException {
+        WebDriver web = WebService.getwebDriver();
+        web.get("http://weibo.com/u/"+userID+"?topnav=1&wvr=6&topsug=1");
+//        WebElement input = web.findElement(By.cssSelector(".gn_search_v2 .W_input"));
+//        input.sendKeys("");
+        for(int i = 0;i<5;i++) {
+            ((JavascriptExecutor) web).executeScript("document .body .scrollTop+=10000");
+            Thread.sleep(5000);
+        }
+        Base base = new Base(web.getPageSource());
+        web.close();
+        List<Document> dbList = new ArrayList<>();
+        for(Base item:base.jsoup(".WB_detail").list()){
+            Document map = new Document();
+            map.put("userName",item.jsoup(".W_f14.W_fb.S_txt1").string());
+            map.put("time",item.jsoup("a.S_txt2[title]").string());
+            map.put("content",item.jsoup(".WB_text").string());
+            List<String> imageURLList = new ArrayList<>();
+            for(Base li : item.jsoup("li img").list()){
+                String url = li.attribute("src");
+                imageURLList.add(url);
+                Downloader.getInstance().addURL(url);
+            }
+            map.put("imageList",imageURLList);
+            map.put("_crawler_date", DateUtils.dateConvertToString(new Date(),"yyyy-MM-dd HH:mm:ss"));
+            map.put("userID", userID);
+            dbList.add(map);
+        }
+        MongoDB.insert(dbList,"sina_weibo");
     }
 }

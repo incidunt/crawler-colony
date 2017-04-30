@@ -1,9 +1,11 @@
 package com.dang.crawler.core.bean;
 
+import com.dang.colony.resources.utils.DataTypeUtils;
 import com.dang.crawler.core.tool.Jsoup;
 import com.dang.crawler.core.tool.Regex;
 import com.dang.crawler.core.tool.Xpath;
 import org.htmlcleaner.TagNode;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +16,20 @@ import java.util.List;
  */
 public class Base {
     private List<String> stringList = new ArrayList<>();
-    private Elements elements;
-    private TagNode[] xpathTagNodes;
+    private Elements elements = new Elements();
+    private TagNode[] xpathTagNodes=new TagNode[]{};
     private Status status = Status.string;
+
+    public Base(Element e) {
+        status=Status.jsoup;
+        elements.add(e);
+    }
+
+    public Base(TagNode tagNode) {
+        status = Status.xpath;
+        xpathTagNodes = new TagNode[]{tagNode};
+    }
+
     public static enum Status{string,jsoup,xpath};
 
     public Base(String page){
@@ -54,6 +67,48 @@ public class Base {
                 return new Base("");
         }
     }
+    public String attribute(String attr) {
+        switch (status) {
+            case string:return DataTypeUtils.listToString(stringList,";");
+            case jsoup:{
+                StringBuffer stringBuffer = new StringBuffer();
+                for(int index=0;index<elements.size()-1;index++){
+                    stringBuffer.append(elements.get(index).attr(attr));
+                }
+                if(elements.size()>0){
+                    stringBuffer.append(elements.get(elements.size()-1).attr(attr));
+                }
+                return stringBuffer.toString();
+            }
+            case xpath:return DataTypeUtils.arrayToString(xpathTagNodes,":");
+            default:
+                return "";
+        }
+    }
+    public List<Base> list() {
+        List<Base> baseList = new ArrayList<>();
+        switch (status) {
+            case string:{
+                for(String str :stringList){
+                    baseList.add(new Base(str));
+                }
+                return baseList;
+            }
+            case jsoup:{
+                for(Element e:elements){
+                    baseList.add(new Base(e));
+                }
+                return baseList;
+            }case xpath:{
+                for(TagNode tagNode:xpathTagNodes){
+                    baseList.add(new Base(tagNode));
+                }
+                return baseList;
+            }
+            default:
+                return baseList;
+        }
+    }
     public Base regex(String regex){
         switch (status) {
             case string:return Regex.regex(regex, stringList);
@@ -61,6 +116,30 @@ public class Base {
             case xpath:return Regex.regex(regex, xpathTagNodes);
             default:
                 return new Base("");
+        }
+    }
+    public String string() {
+        switch (status) {
+            case string:return DataTypeUtils.listToString(stringList,";");
+            case jsoup:{
+                StringBuffer stringBuffer = new StringBuffer();
+                for(Element e :elements){
+                    stringBuffer.append(e.text()+";");
+                }
+                return stringBuffer.toString();
+            }
+            case xpath:return DataTypeUtils.arrayToString(xpathTagNodes,":");
+            default:
+                return "";
+        }
+    }
+    public int size(){
+        switch (status) {
+            case string:return stringList.size();
+            case jsoup:return elements.size();
+            case xpath:return xpathTagNodes.length;
+            default:
+                return 0;
         }
     }
     //////////////////////////////////////////////////////////////////////////////

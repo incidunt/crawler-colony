@@ -11,8 +11,6 @@ import org.bson.types.BasicBSONList;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.print.Doc;
 import java.net.UnknownHostException;
 import java.util.*;
 
@@ -143,11 +141,15 @@ public class MongoDB {
         logger.debug("insert:"+collectionName+"|size:"+document.size()+"|time:"+(System.currentTimeMillis()-start));
     }
 
-    public static void insertList( String collectionName,List<Document> documentList) throws UnknownHostException {
+    public static void insert( List<Document> documentList,String collectionName) throws UnknownHostException {
         long start = System.currentTimeMillis();
+        if(documentList==null||documentList.size()==0){
+            return;
+        }
         getCollection(collectionName).insertMany(documentList);
         logger.debug("insertList:"+collectionName+"|listSize:"+documentList.size()+"|time:"+(System.currentTimeMillis()-start));
     }
+
 
     public static void updateObject(String collectionName,String key ,String uId,String status)throws UnknownHostException {
         long start = System.currentTimeMillis();
