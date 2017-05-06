@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dang.crawler.resources.mysql.dao.CrawlerTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.dang.crawler.resources.mysql.model.CrawlerTask" >
+    <id column="taskId" property="taskId"  />
+    <result column="name" property="name"  />
+    <result column="period" property="period"  />
+    <result column="projectId" property="projectId"  />
+    <result column="sourceId" property="sourceId"  />
+    <result column="createDate" property="createDate"   />
+    <result column="nextStartDate" property="nextStartDate"  />
+    <result column="status" property="status"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name
+  </sql>
+
+  <insert id="insert"  parameterType="com.dang.crawler.resources.mysql.model.CrawlerTask">
+    INSERT INTO crawler_task (taskId , name , period,projectId,sourceId,createDate, nextStartDate,status) VALUES
+                          (#{taskId},#{name},#{period},#{projectId},#{sourceId},now(),#{nextStartDate},#{status})
+  </insert>
+  <update id="update">
+    UPDATE  crawler_task SET
+      taskId = #{taskId},
+      name = #{name},
+      period = #{period},
+      projectId = #{projectId},
+      sourceId = #{sourceId},
+      nextStartDate = #{nextStartDate},
+      status = #{status}
+    WHERE  taskId = #{taskId}
+  </update>
+  <select id="select" parameterType="com.dang.crawler.resources.mysql.model.CrawlerTask" resultMap="BaseResultMap">
+    select * from crawler_task where 1>0
+    <if test="taskId != null">AND taskId = #{taskId}</if>
+    <if test="name != null">AND name = #{name}</if>
+  </select>
+  <select id="list" parameterType="com.dang.crawler.resources.mysql.model.CrawlerTask" resultMap="BaseResultMap">
+    select * from crawler_task;
+  </select>
+
+</mapper>

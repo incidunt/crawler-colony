@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
 		http://jsf.jd.com/schema/jsf ">
 
-	<context:component-scan base-package="com.dang.colony" />
+	<context:component-scan base-package="com.dang" />
 	<util:properties id="sys" location="classpath:sysconfig.properties" />
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

@@ -1,6 +1,6 @@
 package com.dang.crawler.core.bean;
 
-import com.dang.colony.resources.utils.DataTypeUtils;
+import com.dang.crawler.resources.utils.DataTypeUtils;
 import com.dang.crawler.core.tool.Jsoup;
 import com.dang.crawler.core.tool.Regex;
 import com.dang.crawler.core.tool.Xpath;

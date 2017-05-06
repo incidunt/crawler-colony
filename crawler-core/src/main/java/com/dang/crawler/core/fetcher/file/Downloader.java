@@ -1,6 +1,7 @@
 package com.dang.crawler.core.fetcher.file;
 
-import com.dang.crawler.core.bean.CrawlerMQ;
+import com.dang.crawler.resources.bean.core.CrawlerMQ;
+
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

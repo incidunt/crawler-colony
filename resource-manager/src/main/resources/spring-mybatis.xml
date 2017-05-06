@@ -49,9 +49,8 @@
 		</property>
 	</bean>
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-	    <property name="configLocation" value="classpath:mybatis-config.xml" />
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath*:com/dang/colony/resources/mysql/dao/mapping/*.xml" />
+		<property name="mapperLocations" value="classpath*:com/dang/crawler/resources/mysql/dao/mapping/*.xml" />
 	</bean>
 
 
@@ -67,7 +66,7 @@
 
 	<!-- 自动扫描mapper -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.dang.colony.resources.mysql.dao" />
+		<property name="basePackage" value="com.dang.crawler.resources.mysql.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 </beans>

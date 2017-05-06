@@ -1,7 +1,7 @@
 package com.dang.crawler.core.fetcher.bean;
 
 
-import com.dang.crawler.core.fetcher.service.PostTypeEnum;
+import com.dang.crawler.core.fetcher.http.PostTypeEnum;
 
 import java.io.Serializable;
 import java.util.Map;

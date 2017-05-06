@@ -1,8 +1,8 @@
 package com.dang.crawler.core.fetcher.file;
 
-import com.dang.colony.resources.utils.FileUtils;
-import com.dang.crawler.core.bean.CrawlerMQ;
-import com.dang.crawler.core.fetcher.PageService;
+import com.dang.crawler.resources.bean.core.CrawlerMQ;
+import com.dang.crawler.resources.utils.FileUtils;
+import com.dang.crawler.core.fetcher.service.PageService;
 import com.dang.crawler.core.fetcher.bean.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ class DownloadThread implements Runnable{
         CrawlerMQ mq = null;
         while ((mq=downloader.getURL())!=null){
             try {
-                Page page = PageService.fetcher(mq.getRequest(), null);
+                Page page = PageService.fetcher(mq, null);
                 saveFile(getPath(mq),page);
             } catch (IOException e) {
                 e.printStackTrace();
