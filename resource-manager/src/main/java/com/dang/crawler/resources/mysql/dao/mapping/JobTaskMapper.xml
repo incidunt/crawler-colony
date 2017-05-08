@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dang.crawler.resources.mysql.dao.JobTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.dang.crawler.resources.mysql.model.JobTask" >
+    <id column="jobId" property="jobId"  />
+    <result column="taskName" property="taskName"  />
+    <result column="code" property="code"  />
+    <result column="bytes" property="bytes"   />
+    <result column="date" property="date"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jobId,taskName,code,bytes,date
+  </sql>
+
+  <insert id="insert"  parameterType="com.dang.crawler.resources.mysql.model.JobTask">
+    INSERT INTO job_task (jobId , taskName  , code , bytes ,date) VALUES
+                          (#{jobId},#{taskName},#{code},#{bytes},now())
+  </insert>
+  <delete id="delete" parameterType = "com.dang.crawler.resources.mysql.model.JobTask">
+    DELETE  FROM job_task WHERE 1>0
+    <if test="jobId != null">AND jobId = #{jobId}</if>
+    <if test="taskName != null">AND taskName = #{taskName}</if>
+  </delete>
+  <update id="update">
+    UPDATE  job_task
+    <set>
+      <if test="code != null">code = #{code},</if>
+      <if test="bytes != null">bytes = #{bytes},</if>
+      date = now()
+    </set>
+    WHERE  jobId = #{jobId} and taskName = #{taskName}
+  </update>
+  <select id="select" parameterType="com.dang.crawler.resources.mysql.model.JobTask" resultMap="BaseResultMap">
+    select *  from job_task where 1>0
+    <if test="jobId != null">AND jobId = #{jobId}</if>
+    <if test="taskName != null">AND taskName = #{taskName}</if>
+  </select>
+  <select id="list" parameterType="com.dang.crawler.resources.mysql.model.JobTask" resultMap="BaseResultMap">
+    select * from job_task;
+  </select>
+</mapper>

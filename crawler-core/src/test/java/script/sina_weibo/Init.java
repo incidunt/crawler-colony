@@ -1,9 +1,9 @@
 package   script.sina_weibo   ;
 
 
-import com.dang.crawler.resources.bean.core.CrawlerJob;
+import com.dang.crawler.core.script.norm.Script;
+import com.dang.crawler.core.script.norm.Task;
 import com.dang.crawler.resources.bean.core.CrawlerMQ;
-import com.dang.crawler.resources.bean.core.Job;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +11,9 @@ import java.util.List;
 /**
  * Created by mi on 2017/5/3.
  */
-public class Init implements CrawlerJob {
+public class Init implements Script {
     @Override
-    public List<Job> work(CrawlerMQ mq) throws Exception {
+    public List<Task> work(CrawlerMQ mq) throws Exception {
         System.out.println(System.getProperty("user.dir"));//user.dir指定了当前的路径
         String jsonPath = System.getProperty("user.dir") + "\\crawler-core\\src\\main\\java\\com\\dang\\crawler\\core\\script\\" + "weibo_user.txt";
         //String json = FileUtils.getString(jsonPath);
@@ -28,8 +28,8 @@ public class Init implements CrawlerJob {
             crawlerMQ.getExtending().put("userId", userId);
             crawlerMQList.add(crawlerMQ);
         }
-        ArrayList<Job> jobList = new ArrayList<Job>();
-        jobList.add(new Job(crawlerMQList, new Page()));
+        ArrayList<Task> jobList = new ArrayList<Task>();
+        jobList.add(new Task(crawlerMQList, new Page()));
         return jobList;
     }
 }

@@ -1,11 +1,11 @@
 package script.sina_weibo;
 
 import com.dang.crawler.core.bean.Base;
+import com.dang.crawler.core.script.norm.Script;
 import com.dang.crawler.core.fetcher.file.Downloader;
 import com.dang.crawler.core.fetcher.service.WebDriverFactory;
-import com.dang.crawler.resources.bean.core.CrawlerJob;
+import com.dang.crawler.core.script.norm.Task;
 import com.dang.crawler.resources.bean.core.CrawlerMQ;
-import com.dang.crawler.resources.bean.core.Job;
 import com.dang.crawler.resources.mongodb.MongoDB;
 import com.dang.crawler.resources.utils.DateUtils;
 import org.bson.Document;
@@ -17,8 +17,8 @@ import java.util.List;
 /**
  * Created by mi on 2017/5/3.
  */
-public class Page implements CrawlerJob {
-    public List<Job> work(CrawlerMQ crawlerMQ) throws Exception {
+public class Page implements Script {
+    public List<Task> work(CrawlerMQ crawlerMQ) throws Exception {
         WebDriver web = WebDriverFactory.getwebDriver(WebDriverFactory.Driver.phantomjs);
         web.get(crawlerMQ.getRequest().getUrl());
 //        WebElement input = web.findElement(By.cssSelector(".gn_search_v2 .W_input"));

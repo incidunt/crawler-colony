@@ -7,8 +7,10 @@ public class Source {
     private int sourceId;
     private String name;
     private String url;
+    private String note;
 
     /////////////////////////////////
+
 
     public int getSourceId() {
         return sourceId;
@@ -32,5 +34,13 @@ public class Source {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

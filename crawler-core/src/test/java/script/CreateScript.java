@@ -1,7 +1,7 @@
 package script;
 
 import com.dang.crawler.core.serivce.TaskService;
-import com.dang.crawler.resources.mysql.model.CrawlerTask;
+import com.dang.crawler.resources.mysql.model.CrawlerJob;
 import com.dang.crawler.resources.utils.FileUtils;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -32,8 +32,8 @@ public class CreateScript {
             String code = FileUtils.toString(codeFile);
             codeList.add(code);
         }
-        CrawlerTask task = new CrawlerTask();
-        task.setTaskId("sina_weibo");
+        CrawlerJob task = new CrawlerJob();
+        task.setJobId("sina_weibo");
         task.setName("新浪微博");
         task.setPeriod(777777777);
         task.setStatus('0');

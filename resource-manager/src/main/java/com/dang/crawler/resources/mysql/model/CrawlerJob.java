@@ -5,23 +5,28 @@ import java.util.Date;
 /**
  * Created by mi on 2017/5/3.
  */
-public class CrawlerTask {
-    private String taskId;
+public class CrawlerJob {
+    private String jobId;
     private String name;
     private long period;
+    private Date nextStartDate;
+    private char status;
+    private int priority;
+    private int maxThread;
+    private String note;
     private int projectId;
     private int sourceId;
     private Date createDate;
-    private Date nextStartDate;
-    private char status;
 
-    //////////////////////////////////////////////////
-    public String getTaskId() {
-        return taskId;
+    ////////////////////////////////////////////////////
+
+
+    public String getJobId() {
+        return jobId;
     }
 
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
     }
 
     public String getName() {
@@ -48,20 +53,20 @@ public class CrawlerTask {
         this.nextStartDate = nextStartDate;
     }
 
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
     public char getStatus() {
         return status;
     }
 
     public void setStatus(char status) {
         this.status = status;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public int getProjectId() {
@@ -80,17 +85,44 @@ public class CrawlerTask {
         this.sourceId = sourceId;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public int getMaxThread() {
+        return maxThread;
+    }
+
+    public void setMaxThread(int maxThread) {
+        this.maxThread = maxThread;
+    }
+
     @Override
     public String toString() {
-        return "CrawlerTask{" +
-                "taskId='" + taskId + '\'' +
+        return "CrawlerJob{" +
+                "jobId='" + jobId + '\'' +
                 ", name='" + name + '\'' +
                 ", period=" + period +
+                ", nextStartDate=" + nextStartDate +
+                ", status=" + status +
+                ", priority=" + priority +
+                ", maxThread=" + maxThread +
+                ", note='" + note + '\'' +
                 ", projectId=" + projectId +
                 ", sourceId=" + sourceId +
                 ", createDate=" + createDate +
-                ", nextStartDate=" + nextStartDate +
-                ", status=" + status +
                 '}';
     }
 }

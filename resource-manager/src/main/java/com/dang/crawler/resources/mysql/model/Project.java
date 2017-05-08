@@ -6,13 +6,15 @@ package com.dang.crawler.resources.mysql.model;
 public class Project {
     private int projectId;
     private String name;
+    private String note;
 
-    public int getId() {
+    //////////////////////////////////////////////
+    public int getProjectId() {
         return projectId;
     }
 
-    public void setId(int id) {
-        this.projectId = id;
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 
     public String getName() {
@@ -21,5 +23,13 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

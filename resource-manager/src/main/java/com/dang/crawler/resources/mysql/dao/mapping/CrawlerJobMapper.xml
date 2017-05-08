@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dang.crawler.resources.mysql.dao.CrawlerJobMapper" >
+  <resultMap id="BaseResultMap" type="com.dang.crawler.resources.mysql.model.CrawlerJob" >
+    <id column="jobId" property="jobId"  />
+    <result column="name" property="name"  />
+    <result column="period" property="period"  />
+    <result column="nextStartDate" property="nextStartDate"  />
+    <result column="status" property="status"  />
+    <result column="priority" property="priority"  />
+    <result column="maxThread" property="maxThread"  />
+    <result column="note" property="note"  />
+    <result column="projectId" property="projectId"  />
+    <result column="sourceId" property="sourceId"  />
+    <result column="createDate" property="createDate"   />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name
+  </sql>
+
+  <insert id="insert"  parameterType="com.dang.crawler.resources.mysql.model.CrawlerJob">
+    INSERT INTO crawler_job ( jobId , name , period , nextStartDate , status , priority , maxThread , note, projectId , sourceId , createDate) VALUES
+                          (#{jobId},#{name},#{period},#{nextStartDate},#{status},#{priority},#{maxThread},#{note},#{projectId},#{sourceId},now())
+  </insert>
+  <delete id="delete" parameterType="java.lang.String">
+    DELETE FROM crawler_job WHERE jobId = #{jobId};
+  </delete>
+  <update id="update">
+    UPDATE  crawler_job SET
+    <if test="name != null"> name = #{name},</if>
+    <if test="period != null"> period = #{period},</if>
+    <if test="nextStartDate != null"> nextStartDate = #{nextStartDate},</if>
+    <if test="status != null"> status = #{status},</if>
+    <if test="priority != null"> priority = #{priority},</if>
+    <if test="maxThread != null"> maxThread = #{maxThread},</if>
+    <if test="note != null"> note = #{note},</if>
+    <if test="projectId != null"> projectId = #{projectId},</if>
+    <if test="sourceId != null"> sourceId = #{sourceId},</if>
+       jobId = #{jobId}
+    WHERE  jobId = #{jobId}
+  </update>
+  <select id="select" parameterType="com.dang.crawler.resources.mysql.model.CrawlerJob" resultMap="BaseResultMap">
+    select * from crawler_job where 1>0
+    <if test="jobId != null">AND jobId = #{jobId}</if>
+    <if test="name != null">AND name = #{name}</if>
+  </select>
+  <select id="list" parameterType="com.dang.crawler.resources.mysql.model.CrawlerJob" resultMap="BaseResultMap">
+    select * from crawler_job;
+  </select>
+
+</mapper>

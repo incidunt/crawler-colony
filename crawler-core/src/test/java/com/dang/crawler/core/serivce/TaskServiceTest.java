@@ -1,7 +1,7 @@
 package com.dang.crawler.core.serivce;
 
 import com.dang.crawler.resources.mysql.dao.ProjectMapper;
-import com.dang.crawler.resources.mysql.model.CrawlerTask;
+import com.dang.crawler.resources.mysql.model.CrawlerJob;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -19,11 +19,11 @@ public class TaskServiceTest {
     }
     @Test
     public void testCreate() throws Exception {
-        CrawlerTask crawlerTask = new CrawlerTask();
-        crawlerTask.setTaskId("task_test_1");
-        crawlerTask.setName("tasl test 1");
-        crawlerTask.setPeriod(123);
-        crawlerTask.setStatus('0');
+        CrawlerJob crawlerJob = new CrawlerJob();
+        crawlerJob.setJobId("task_test_1");
+        crawlerJob.setName("tasl test 1");
+        crawlerJob.setPeriod(123);
+        crawlerJob.setStatus('0');
         //taskService.create(crawlerTask ,"");
         System.out.println("xxx");
     }

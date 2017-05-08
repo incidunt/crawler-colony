@@ -1,12 +1,12 @@
 package com.dang.crawler.core.serivce;
 
 import com.dang.crawler.core.tool.Regex;
+import com.dang.crawler.resources.mysql.model.CrawlerJob;
 import com.dang.crawler.resources.compile.DynamicEngine;
 import com.dang.crawler.resources.compile.JavaClassObject;
-import com.dang.crawler.resources.mysql.dao.CrawlerTaskMapper;
-import com.dang.crawler.resources.mysql.dao.JobCodeMapper;
-import com.dang.crawler.resources.mysql.model.CrawlerTask;
-import com.dang.crawler.resources.mysql.model.JobCode;
+import com.dang.crawler.resources.mysql.dao.CrawlerJobMapper;
+import com.dang.crawler.resources.mysql.dao.JobTaskMapper;
+import com.dang.crawler.resources.mysql.model.JobTask;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
@@ -16,27 +16,27 @@ import java.util.List;
 @Service
 public class TaskService {
     @Resource
-    CrawlerTaskMapper crawlerTaskMapper;
+    CrawlerJobMapper crawlerJobMapper;
     @Resource
-    JobCodeMapper jobCodeMapper;
+    JobTaskMapper jobCodeMapper;
 
-    public void create(CrawlerTask crawlerTask, List<String> jobCodeList) throws Exception {
-        CrawlerTask selectCrawlerTask = crawlerTaskMapper.select(crawlerTask);
-        if (selectCrawlerTask == null) {
-            crawlerTaskMapper.insert(crawlerTask);
+    public void create(CrawlerJob crawlerJob, List<String> jobCodeList) throws Exception {
+        CrawlerJob selectCrawlerJob = crawlerJobMapper.select(crawlerJob);
+        if (selectCrawlerJob == null) {
+            crawlerJobMapper.insert(crawlerJob);
         } else {
-            crawlerTaskMapper.update(crawlerTask);
-            JobCode jobCode = new JobCode(crawlerTask.getTaskId(), null);
-            jobCodeMapper.delete(jobCode);
+            crawlerJobMapper.update(selectCrawlerJob);
+            JobTask jobTask = new JobTask(crawlerJob.getJobId(), null);
+            jobCodeMapper.delete(jobTask);
         }
         for(String code:jobCodeList){
             String fullName = getFullName(code);
             DynamicEngine de = DynamicEngine.getInstance();
             JavaClassObject jco = de.javaCodeToJavaClassObject(fullName, code);
-            JobCode jobCode = new JobCode(crawlerTask.getTaskId(),fullName.substring(fullName.lastIndexOf(".")+1));
-            jobCode.setCode(code);
-            jobCode.setCls(jco.getBytes());
-            jobCodeMapper.insert(jobCode);
+            JobTask jobTask = new JobTask(crawlerJob.getJobId(),fullName.substring(fullName.lastIndexOf(".")+1));
+            jobTask.setCode(code);
+            jobTask.setBytes(jco.getBytes());
+            jobCodeMapper.insert(jobTask);
         }
 //        //Script script = getScript();
 //        List<CrawlerJob> crawlerJobList = script.create();
