@@ -8,9 +8,9 @@ import java.util.Date;
 public class CrawlerJob {
     private String jobId;
     private String name;
-    private long period;
+    private long period;//周期
     private Date nextStartDate;
-    private char status;
+    private String status;
     private int priority;
     private int maxThread;
     private String note;
@@ -19,8 +19,24 @@ public class CrawlerJob {
     private Date createDate;
 
     ////////////////////////////////////////////////////
-
-
+    public static enum Status {
+        run("run","run"), stop("stop", "stop"), standby("standby", "standby"),goOn("goOn","goOn");
+        // 成员变量
+        private String name;
+        private String value;
+        // 构造方法
+        private Status(String name, String value) {
+            this.name = name;
+            this.value = value;
+        }
+        public  String getName() {
+            return name;
+        }
+        public String getValue() {
+            return value;
+        }
+    }
+    ////////////////////////////////////////////////////
     public String getJobId() {
         return jobId;
     }
@@ -53,11 +69,11 @@ public class CrawlerJob {
         this.nextStartDate = nextStartDate;
     }
 
-    public char getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(char status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

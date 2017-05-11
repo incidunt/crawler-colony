@@ -237,10 +237,10 @@ public class MongoDB {
      * @return
      * @throws UnknownHostException
      */
-    public static String shardKey(String collectionName, String fieldName, int type) throws UnknownHostException {
-        //CommandResult cResult = getCollection(collectionName).getStats();
-        //db.runCommand( { shardcollection : "crawler.eloanblack_7jubao_info",key : {_id: 1}} )
-        String resultStr = "";
+    public static void shardKey(String collectionName, String fieldName, int type) throws UnknownHostException {
+//        CommandResult cResult = getCollection(collectionName).getStats();
+//        db.runCommand( { shardcollection : "crawler.eloanblack_7jubao_info",key : {_id: 1}} )
+//        String resultStr = "";
 //		try {
 //			if(getCollection(collectionName).findOne() != null){
 //                return resultStr;
@@ -257,7 +257,7 @@ public class MongoDB {
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
-        return resultStr;
+//        return resultStr;
     }
 
     /**

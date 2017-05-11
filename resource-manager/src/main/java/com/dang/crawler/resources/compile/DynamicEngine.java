@@ -79,6 +79,8 @@ public class DynamicEngine {//
         if (success) {
             //如果编译成功，用类加载器加载该类
             JavaClassObject jco = fileManager.getJavaClassObject();
+            long end = System.currentTimeMillis();
+            System.out.println("javaCodeToObject use>>"+fullClassName+">"+(end-start)+"ms");
             return jco;
         }else {
             //如果想得到具体的编译错误，可以对Diagnostics进行扫描
@@ -86,11 +88,8 @@ public class DynamicEngine {//
             for (Diagnostic diagnostic : diagnostics.getDiagnostics()) {
                 error += compilePrint(diagnostic);
             }
+            throw new Exception(error);
         }
-        long end = System.currentTimeMillis();
-        System.out.println("javaCodeToObject use:"+(end-start)+"ms");
-        return null;
-
     }
     /**
      * @MethodName    : 编译java代码到Object
@@ -104,6 +103,11 @@ public class DynamicEngine {//
         JavaClassObject jco = javaCodeToJavaClassObject(fullClassName,javaCode);
         DynamicClassLoader dynamicClassLoader = new DynamicClassLoader(this.parentClassLoader);
         Class clazz = dynamicClassLoader.loadClass(fullClassName,jco);
+        return clazz.newInstance();
+    }
+    public Object bytesToObject(String fullClassName ,byte []bytes) throws IllegalAccessException, InstantiationException {
+        DynamicClassLoader dynamicClassLoader = new DynamicClassLoader(this.parentClassLoader);
+        Class clazz = dynamicClassLoader.loadClass(fullClassName,bytes);
         return clazz.newInstance();
     }
 

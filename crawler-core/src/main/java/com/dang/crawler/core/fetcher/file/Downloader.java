@@ -1,7 +1,6 @@
 package com.dang.crawler.core.fetcher.file;
 
-import com.dang.crawler.resources.bean.core.CrawlerMQ;
-
+import com.dang.crawler.core.control.bean.Crawler;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -12,7 +11,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class Downloader {
     private static Downloader downloader = new Downloader();
-    private Queue<CrawlerMQ> queue = new LinkedBlockingQueue<>();
+    private Queue<Crawler> queue = new LinkedBlockingQueue<>();
     private int maxThread = 5;
     private int threadCount = 0;
     ExecutorService es = Executors.newFixedThreadPool(maxThread);
@@ -22,7 +21,7 @@ public class Downloader {
     public static Downloader getInstance(){
         return downloader;
     }
-    public synchronized void addURL(CrawlerMQ mq){
+    public synchronized void addURL(Crawler mq){
         queue.add(mq);
         if(threadCount<maxThread) {
             es.execute(new DownloadThread(this));
@@ -30,12 +29,12 @@ public class Downloader {
         }
     }
     public void addURL(String url){
-        CrawlerMQ crawlerMQ = new CrawlerMQ();
-        crawlerMQ.getRequest().setUrl(url);
-        addURL(crawlerMQ);
+        Crawler crawler = new Crawler();
+        crawler.setUrl(url);
+        addURL(crawler);
     }
 
-    public synchronized CrawlerMQ getURL(){
+    public synchronized Crawler getURL(){
         return queue.poll();
     }
 

@@ -45,7 +45,18 @@
     <if test="name != null">AND name = #{name}</if>
   </select>
   <select id="list" parameterType="com.dang.crawler.resources.mysql.model.CrawlerJob" resultMap="BaseResultMap">
-    select * from crawler_job;
+    select * from crawler_job  WHERE 1>0
+    <!--<if test="jobId != null">AND jobId = #{jobId}</if>-->
+    <!--<if test="name != null">AND name = #{name}</if>-->
+    <!--<if test="period != null">AND period = #{period}</if>-->
+    <if test="nextStartDate != null">AND nextStartDate &lt; #{nextStartDate}</if>
+    <if test="status != null">AND status = #{status}</if>
+    <!--<if test="priority != null">AND priority = #{priority}</if>-->
+    <!--<if test="maxThread != null">AND maxThread = #{maxThread}</if>-->
+    <!--<if test="note != null">AND note = #{note}</if>-->
+    <!--<if test="projectId != null">AND projectId = #{projectId}</if>-->
+    <!--<if test="sourceId != null">AND sourceId = #{sourceId}</if>-->
+    <!--<if test="createDate != null">AND createDate = #{createDate}</if>-->
   </select>
 
 </mapper>

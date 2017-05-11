@@ -11,7 +11,7 @@
 
 
 	<appender name="logic" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" value="/export/log/resource_manager/list/logic.log"/>
+		<param name="File" value="/Files/crawler-core/log/logic.log"/>
 		<param name="Append" value="false"/>
 		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
 		<param name="threshold" value="DEBUG"/>
@@ -24,6 +24,6 @@
 	<root>
 		<level value="info" />
 		<appender-ref ref="logic" />
-		<appender-ref ref="console"/>
+		<appender-ref ref="console" />
 	</root>
 </log4j:configuration>

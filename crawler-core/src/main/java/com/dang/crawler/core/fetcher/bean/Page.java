@@ -3,6 +3,7 @@ package com.dang.crawler.core.fetcher.bean;
 
 
 import java.io.Serializable;
+
 import org.apache.http.HttpResponse;
 public class Page implements Serializable {
     private static final long serialVersionUID = -5146315260683733260L;
@@ -44,5 +45,9 @@ public class Page implements Serializable {
 
     public void setResponseBytes(byte[] responseBytes) {
         this.responseBytes = responseBytes;
+    }
+
+    public String getHeader(String key){
+        return response.getFirstHeader(key).getValue();
     }
 }

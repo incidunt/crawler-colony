@@ -1,6 +1,6 @@
 package com.dang.crawler.core.fetcher.file;
 
-import com.dang.crawler.resources.bean.core.CrawlerMQ;
+import com.dang.crawler.core.control.bean.Crawler;
 import com.dang.crawler.resources.utils.FileUtils;
 import com.dang.crawler.core.fetcher.service.PageService;
 import com.dang.crawler.core.fetcher.bean.Page;
@@ -19,7 +19,7 @@ class DownloadThread implements Runnable{
         this.downloader = downloader;
     }
     public void run() {
-        CrawlerMQ mq = null;
+        Crawler mq = null;
         while ((mq=downloader.getURL())!=null){
             try {
                 Page page = PageService.fetcher(mq, null);
@@ -31,8 +31,8 @@ class DownloadThread implements Runnable{
         downloader.finish();
     }
 
-    private String getPath(CrawlerMQ mq) {//http://wx1.sinaimg.cn/mw690/00685TFIgy1fexs9ewr17j30j30vwgpz.jpg
-        String url = mq.getRequest().getUrl();
+    private String getPath(Crawler crawler) {//http://wx1.sinaimg.cn/mw690/00685TFIgy1fexs9ewr17j30j30vwgpz.jpg
+        String url = crawler.getUrl();
         String path ="D:\\Files\\MyCode\\outPut\\"+ url.substring(url.lastIndexOf("/"), url.length());
         return path;
     }

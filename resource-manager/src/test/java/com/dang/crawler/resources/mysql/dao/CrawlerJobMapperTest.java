@@ -24,12 +24,12 @@ public class CrawlerJobMapperTest {
     public void testInsert(){
         CrawlerJob crawleJob = new CrawlerJob();
         crawleJob.setJobId("job_id_test");
-        crawleJob.setName("djob name");
-        crawleJob.setStatus('1');
+        crawleJob.setName("dang_name");
+        crawleJob.setStatus(CrawlerJob.Status.run.getName());
         crawleJob.setPriority(5);
         crawleJob.setMaxThread(10);
         crawleJob.setNote("note test");
-        crawleJob.setNextStartDate(new Date());
+        //crawleJob.setNextStartDate(new Date());
         crawleJob.setPeriod(123);
         crawlerJobMapper.insert(crawleJob);
     }
@@ -38,11 +38,11 @@ public class CrawlerJobMapperTest {
     public void testUpdata(){
         CrawlerJob crawleJob = new CrawlerJob();
         crawleJob.setJobId("job_id_test");
-        crawleJob.setName("dang_name");
-        crawleJob.setStatus('1');
+        //crawleJob.setName("dang_name");
+        crawleJob.setStatus(CrawlerJob.Status.run.getName());
         crawleJob.setPriority(5);
         crawleJob.setMaxThread(10);
-        crawleJob.setName("note test");
+        crawleJob.setName("dang_name");
         crawleJob.setNextStartDate(new Date());
         crawleJob.setPeriod(123456);
         crawlerJobMapper.update(crawleJob);
@@ -57,7 +57,10 @@ public class CrawlerJobMapperTest {
     }
     @Test
     public void list(){
-        List<CrawlerJob> list = crawlerJobMapper.list();
+        CrawlerJob crawlerJob = new CrawlerJob();
+        crawlerJob.setStatus(CrawlerJob.Status.run.getName());
+        crawlerJob.setNextStartDate(new Date());
+        List<CrawlerJob> list = crawlerJobMapper.list(crawlerJob);
         for(CrawlerJob crawleJob :list){
             System.out.println(crawleJob.toString());
         }

@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-		http://jsf.jd.com/schema/jsf ">
+		">
 
 	<context:component-scan base-package="com.dang" />
 	<util:properties id="sys" location="classpath:sysconfig.properties" />
@@ -19,7 +19,6 @@
 		<property name="locations">
 			<list>
 				<value>classpath*:db.properties</value>
-				<value>classpath*:mq.properties</value>
 				<value>classpath*:sysconfig.properties</value>
 			</list>
 		</property>

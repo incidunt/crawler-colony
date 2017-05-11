@@ -23,7 +23,7 @@ public class TaskServiceTest {
         crawlerJob.setJobId("task_test_1");
         crawlerJob.setName("tasl test 1");
         crawlerJob.setPeriod(123);
-        crawlerJob.setStatus('0');
+        crawlerJob.setStatus(CrawlerJob.Status.run.getName());
         //taskService.create(crawlerTask ,"");
         System.out.println("xxx");
     }

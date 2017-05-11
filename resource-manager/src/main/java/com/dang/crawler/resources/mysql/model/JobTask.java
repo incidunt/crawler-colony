@@ -1,6 +1,5 @@
 package com.dang.crawler.resources.mysql.model;
 
-import jdk.nashorn.internal.scripts.JO;
 
 import java.util.Date;
 

@@ -16,23 +16,25 @@ public class DataTypeUtils{
         return list;
     }
     public static String arrayToString(Object []array, String split){
-        StringBuffer stringBuffer =new StringBuffer();
-        for(Object obj:array){
-           stringBuffer.append(obj.toString()+split);
-        }
-        return stringBuffer.toString();
-    }
-    public static <T>String listToString(List<T> list,String split){
-        if(list==null){
+        if(array==null||array.length==0){
             return "";
         }
         StringBuffer stringBuffer =new StringBuffer();
-        if(list.size()==1){
-            return list.get(0).toString();
+        for(int index = 0;index<array.length-1;index++){
+           stringBuffer.append(array[index].toString()+split);
         }
-        for(T i:list){
-            stringBuffer.append(i.toString()+split);
+        stringBuffer.append(array[array.length-1].toString());
+        return stringBuffer.toString();
+    }
+    public static <T>String listToString(List<T> list,String split){
+        if(list==null||list.size()==0){
+            return "";
         }
+        StringBuffer stringBuffer =new StringBuffer();
+        for(int index = 0;index<list.size()-1;index++){
+            stringBuffer.append(list.get(index).toString()+split);
+        }
+        stringBuffer.append(list.get(list.size()-1).toString());
         return stringBuffer.toString();
     }
 }

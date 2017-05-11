@@ -1,14 +1,13 @@
 package com.dang.crawler.resources.mongodb;
-import com.dang.crawler.resources.common.PropertiesLoaderFactory;
+
+import com.dang.crawler.resources.utils.PropertiesUtils;
 import com.mongodb.*;
 import com.mongodb.client.MongoDatabase;
 import org.apache.commons.lang.StringUtils;
-
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 /**
  * @author ddangqihe
  *
@@ -74,22 +73,21 @@ public class MongoManagerFactory {
 	public synchronized void init() throws UnknownHostException {
 
 		if (mongoClient == null) {
-			port = Integer.valueOf(PropertiesLoaderFactory.getInstance().getProperties().getProperty("hanukkah.mongo.port"));
-			connectTimeOut = Integer.valueOf(PropertiesLoaderFactory.getInstance().getProperties().getProperty("hanukkah.mongo.connectTimeOut"));
-			ipList = PropertiesLoaderFactory.getInstance().getProperties().getProperty("hanukkah.mongo.hostName").split(",");
-			dbname = PropertiesLoaderFactory.getInstance().getProperties().getProperty("hanukkah.mongo.defaultDB");
-			username = PropertiesLoaderFactory.getInstance().getProperties().getProperty("hanukkah.mongo.userName");
-			password = PropertiesLoaderFactory.getInstance().getProperties().getProperty("hanukkah.mongo.passWord");
+			port = Integer.valueOf(PropertiesUtils.getProperty("hanukkah.mongo.port"));
+			connectTimeOut = Integer.valueOf(PropertiesUtils.getProperty("hanukkah.mongo.connectTimeOut"));
+			ipList = PropertiesUtils.getProperty("hanukkah.mongo.hostName").split(",");
+			dbname = PropertiesUtils.getProperty("hanukkah.mongo.defaultDB");
+			username = PropertiesUtils.getProperty("hanukkah.mongo.userName");
+			password = PropertiesUtils.getProperty("hanukkah.mongo.passWord");
 			poolsize = Integer
-					.valueOf(PropertiesLoaderFactory.getInstance().getProperties().getProperty("hanukkah.mongo.poolSize"));
-			realDbName = PropertiesLoaderFactory.getInstance().getProperties().getProperty("hanukkah.mongo.realDB");
-			adminDbName = PropertiesLoaderFactory.getInstance().getProperties().getProperty("hanukkah.mongo.adminDB");
+					.valueOf(PropertiesUtils.getProperty("hanukkah.mongo.poolSize"));
+			realDbName = PropertiesUtils.getProperty("hanukkah.mongo.realDB");
+			adminDbName = PropertiesUtils.getProperty("hanukkah.mongo.adminDB");
 			minConnectionsPerHost = Integer.valueOf(
-					PropertiesLoaderFactory.getInstance().getProperties().getProperty("hanukkah.mongo.minConnectionsPerHost"));
+					PropertiesUtils.getProperty("hanukkah.mongo.minConnectionsPerHost"));
 			maxWaitTime = Integer
-					.valueOf(PropertiesLoaderFactory.getInstance().getProperties().getProperty("hanukkah.mongo.maxWaitTime"));
-			threadsAllowedToBlockForConnectionMultiplier = Integer.valueOf(PropertiesLoaderFactory.getInstance()
-					.getProperties().getProperty("hanukkah.mongo.threadsAllowedToBlockForConnectionMultiplier"));
+					.valueOf(PropertiesUtils.getProperty("hanukkah.mongo.maxWaitTime"));
+			threadsAllowedToBlockForConnectionMultiplier = Integer.valueOf(PropertiesUtils.getProperty("hanukkah.mongo.threadsAllowedToBlockForConnectionMultiplier"));
 
 			MongoClientOptions clientOptions = new MongoClientOptions.Builder().socketKeepAlive(true)
 					.threadsAllowedToBlockForConnectionMultiplier(threadsAllowedToBlockForConnectionMultiplier)

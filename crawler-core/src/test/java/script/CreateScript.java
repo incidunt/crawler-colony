@@ -7,20 +7,23 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by mi on 2017/5/3.
  */
 public class CreateScript {
-    private static String taskId="sina_weibo";
+    private static final String JOB_ID = "script_test";
+    private static final String JOB_NAME = "script_test";
+    private static final long JOB_PERIOD = 5L*24*60*60*1000;
     private static TaskService taskService = null;
     public static void main(String []args) throws Exception {
         taskService = (TaskService) new ClassPathXmlApplicationContext(new String[] { "classpath:spring-*.xml" }).getBean("taskService");
         create();
     }
     public static void create() throws Exception {
-        String path = System.getProperty("user.dir") + "/crawler-core/src/test/java/script/"+taskId;
+        String path = System.getProperty("user.dir") + "/crawler-core/src/test/java/script/"+JOB_ID;
         File file = new File(path);
         if(!file.exists()){
             System.out.println("文件夹不存在！"+file.getAbsolutePath());
@@ -33,10 +36,12 @@ public class CreateScript {
             codeList.add(code);
         }
         CrawlerJob task = new CrawlerJob();
-        task.setJobId("sina_weibo");
-        task.setName("新浪微博");
-        task.setPeriod(777777777);
-        task.setStatus('0');
+        task.setJobId(JOB_ID);
+        task.setName(JOB_NAME);
+        task.setPeriod(JOB_PERIOD);
+        task.setPriority(6);
+        task.setStatus(CrawlerJob.Status.standby.getName());
+        task.setNextStartDate(new Date());
         taskService.create(task,codeList);
 
     }
