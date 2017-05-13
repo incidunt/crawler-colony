@@ -3,6 +3,8 @@ package com.dang.crawler.core.control.impl;
 import com.dang.crawler.core.control.bean.Crawler;
 import com.dang.crawler.core.control.bean.Job;
 import com.dang.crawler.core.control.norm.Butler;
+import com.dang.crawler.core.control.norm.JobCounter;
+import com.dang.crawler.core.serivce.ApplicationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.*;
@@ -13,9 +15,10 @@ import java.util.*;
 public class
 LonelyCrawlerButler implements Butler<Job,Crawler> {
     private static Logger log = LoggerFactory.getLogger(LonelyCrawlerButler.class);
-    public Map<Job,Queue<Crawler>> map = new HashMap<>();
+    public Map<String,Queue<Crawler>> map = new HashMap<>();
     @Override
     public synchronized boolean put(Job job, Crawler crawler) {
+        ApplicationContext.jobCounter.update(job.getJobId(), JobCounter.Attribute.crawler.getName(),1);//+crawler++++++++++++++++++
         Queue<Crawler> queue = map.get(getKey(job));
         boolean result = false;
         if(queue!=null){
@@ -23,7 +26,7 @@ LonelyCrawlerButler implements Butler<Job,Crawler> {
             return queue.offer(crawler);
         }else {
             queue = new ArrayDeque<Crawler>();
-            map.put(job,queue);
+            map.put(getKey(job),queue);
             log.info("put>>>create>>"+crawler.getJobId());
             return queue.offer(crawler);
         }
@@ -31,6 +34,8 @@ LonelyCrawlerButler implements Butler<Job,Crawler> {
 
     @Override
     public int putAll(Job job, Collection<? extends Crawler> crawlers) {
+        ApplicationContext.jobCounter.update(job.getJobId(), JobCounter.Attribute.crawler.getName(),crawlers.size());//+crawler++++++++++++++++++
+
         Queue<Crawler> queue = map.get(getKey(job));
         boolean result = false;
         if(queue!=null){
@@ -38,7 +43,7 @@ LonelyCrawlerButler implements Butler<Job,Crawler> {
             result = queue.addAll(crawlers);
         }else {
             queue = new ArrayDeque<Crawler>();
-            map.put(job,queue);
+            map.put(getKey(job),queue);
             log.info("putAll>>>create>>"+crawlers.size()+">"+job.getJobId());
             result = queue.addAll(crawlers);
         }
@@ -49,9 +54,18 @@ LonelyCrawlerButler implements Butler<Job,Crawler> {
     public synchronized Crawler get(Job job) {
         Queue<Crawler> queue = map.get(getKey(job));
         if(queue!=null){
-            return queue.poll();
+            Crawler crawler = queue.poll();
+            if(crawler!=null){
+                return crawler;
+            }
         }
         return null;
+    }
+
+    @Override
+    public boolean remove(Job job) {
+        map.remove(getKey(job));
+        return true;
     }
 
     @Override
@@ -69,8 +83,8 @@ LonelyCrawlerButler implements Butler<Job,Crawler> {
 
 
 
-    private Job getKey(Job job){
-        return  job;
+    private String getKey(Job job){
+        return  job.getJobId();
     }
 
 }

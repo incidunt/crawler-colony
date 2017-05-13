@@ -20,11 +20,7 @@ public class WebDriverPool extends BlockingPool<WebDriver> {
 
     @Override
     protected WebDriver make() {
-        if(ApplicationContext.debug){
-            return WebDriverFactory.makeWebDriver(WebDriverFactory.Driver.chrome);
-        }else {
-            return WebDriverFactory.makeWebDriver(WebDriverFactory.Driver.phantomjs);
-        }
+        return WebDriverFactory.makeWebDriver(WebDriverFactory.Driver.phantomjs);
     }
 
 }

@@ -4,9 +4,11 @@ import com.dang.crawler.core.control.bean.Crawler;
 import com.dang.crawler.core.control.bean.Job;
 import com.dang.crawler.core.control.bean.JobCrawler;
 import com.dang.crawler.core.control.norm.Cache;
+import com.dang.crawler.core.control.norm.JobCounter;
 import com.dang.crawler.core.script.norm.Script;
 import com.dang.crawler.core.script.norm.Task;
 import com.dang.crawler.core.serivce.ApplicationContext;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayDeque;
@@ -23,7 +25,7 @@ public class TaskWorkControl {
     //public static Cache<Crawler,Script> scriptCache = ApplicationContext.scriptCache();
     private int cacheSize = 1000;
     private Queue<JobCrawler> cacheQueue = new ArrayDeque<JobCrawler>(cacheSize);
-    private int maxThread = 5;
+    private int maxThread = 32;
     private int threadCount = 0;
     ExecutorService executorService = Executors.newFixedThreadPool(maxThread) ;
     //private Lock lock = new ReentrantLock();
@@ -47,12 +49,43 @@ public class TaskWorkControl {
     }
 
     public void workSuccess(JobCrawler jobCrawler, List<Task> result) {
+
         if(result!=null) {
             for (Task task : result) {
+                List<Crawler> crawlerList = task.getCrawlerList();
+                for(int i=0;i<crawlerList.size() ;i++) {
+                    Crawler crawler = crawlerList.get(i);
+                    if(!check(jobCrawler,crawler)){
+                        crawlerList.remove(i--);
+                    }
+                }
                 ApplicationContext.crawlerButler().putAll(jobCrawler.getJob(), task.getCrawlerList());
             }
         }
         //TODO
+    }
+
+    private boolean check(JobCrawler jobCrawler, Crawler crawler) {
+        if(StringUtils.isEmpty(crawler.getUrl())||crawler.getUrl().length()<5){
+            return false;
+        }
+        if(crawler.getUrl().contains("htt")){
+            return true;
+        }else {
+            String host =jobCrawler.getCrawler().getUrl();
+            if(host.substring(8).contains("/")) {
+                host = host.substring(0,host.substring(8).indexOf("/")+8);
+            }else if(host.contains("?")){
+                host = host.substring(0, host.indexOf("?"));
+            }
+            String url = crawler.getUrl();
+            if(url.substring(0,1).equals("/")){
+                crawler.setUrl(host+url);
+            }else {
+                crawler.setUrl(host+"/"+url);
+            }
+            return true;
+        }
     }
 
     public void workfail(JobCrawler jobCrawler) {

@@ -1,4 +1,4 @@
-package com.dang.crawler.core.fetcher.script;
+package com.dang.crawler.core.script;
 
 /**
  * Created by duang on 2017/4/30.

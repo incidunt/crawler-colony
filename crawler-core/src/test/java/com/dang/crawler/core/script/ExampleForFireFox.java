@@ -1,4 +1,4 @@
-package com.dang.crawler.core.fetcher.script;
+package com.dang.crawler.core.script;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

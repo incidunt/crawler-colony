@@ -30,6 +30,7 @@ public class JobTimerThread implements Runnable{
             crawlerJob.setNextStartDate(new Date());
             List<CrawlerJob> list = crawlerJobMapper.list(crawlerJob);
             if(list!=null){
+                endPrevious(list);
                 startJobList(list);
             }else {
                 try {
@@ -38,6 +39,17 @@ public class JobTimerThread implements Runnable{
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    private void endPrevious(List<CrawlerJob> list) {
+        for(CrawlerJob crawlerJob :list) {
+            Job job = new Job();
+            job.setJobId(crawlerJob.getJobId());
+            job.setMaxThread(crawlerJob.getMaxThread());
+            job.setPriority(crawlerJob.getPriority());
+            ApplicationContext.crawlerButler().remove(job);
+            ApplicationContext.jobNotice().remove(job);
         }
     }
 

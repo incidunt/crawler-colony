@@ -8,6 +8,8 @@ public class Job {
     private int priority;
     private int maxThread;
     private long flag;
+    private int CrawlerCounter;
+    private int workThread;
     //////////////////////////////////////
     public String getJobId() {
         return jobId;
@@ -39,5 +41,21 @@ public class Job {
 
     public void setFlag(long flag) {
         this.flag = flag;
+    }
+
+    public int getCrawlerCounter() {
+        return CrawlerCounter;
+    }
+
+    public void setCrawlerCounter(int crawlerCounter) {
+        CrawlerCounter = crawlerCounter;
+    }
+
+    public int getWorkThread() {
+        return workThread;
+    }
+
+    public void setWorkThread(int workThread) {
+        this.workThread = workThread;
     }
 }

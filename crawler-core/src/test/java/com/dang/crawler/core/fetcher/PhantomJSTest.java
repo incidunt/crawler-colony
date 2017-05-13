@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
  */
 public class PhantomJSTest {
     @Test
-    public void test(){
+    public void test() throws InterruptedException {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setJavascriptEnabled(true);
         caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, "D:\\Files\\MyCode\\USE\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");
@@ -39,8 +39,9 @@ public class PhantomJSTest {
         long lastTime =0,thisTime=0;
         for(int i = 0 ; i<10000 ;i++) {
             webDriver = new PhantomJSDriver(caps);
-            webDriver.get("https://www.baidu.com/");
-            System.out.print(webDriver.getPageSource().length());
+            webDriver.get("http://weibo.com/u/5616413326?topnav=1&wvr=6&topsug=1&is_hot=1");
+            Thread.sleep(5000);
+            System.out.print(webDriver.getTitle());
             thisTime = new Date().getTime();
             System.out.println("==="+(thisTime-lastTime));
             lastTime = thisTime;

@@ -1,4 +1,4 @@
-package com.dang.crawler.core.fetcher.script;
+package com.dang.crawler.core.script;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;

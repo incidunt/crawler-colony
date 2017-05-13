@@ -24,14 +24,14 @@ public class Init implements Script {
         String []array = {"5616413326","5763755594","2654037900"};
         for (int i = 0; i < array.length; i++) {
             String userId = array[i];
-            log.info("===========================================================================" + i);
+            log.info("===========================================================================" +i);
             Crawler crawlerMQ = new Crawler();
             crawlerMQ.setUrl("http://weibo.com/u/" + userId + "?topnav=1&wvr=6&topsug=1");
             crawlerMQ.put("userId", userId);
             crawlerMQList.add(crawlerMQ);
         }
         ArrayList<Task> jobList = new ArrayList<Task>();
-        jobList.add(new Task(crawlerMQList, new Init1()));
+        jobList.add(new Task(crawlerMQList, new ImgList()));
         return jobList;
     }
 }

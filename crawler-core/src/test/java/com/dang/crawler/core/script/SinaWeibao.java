@@ -1,4 +1,4 @@
-package com.dang.crawler.core.fetcher.script;
+package com.dang.crawler.core.script;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -23,7 +23,7 @@ import java.util.List;
 public class SinaWeibao {
     public static void main(String []args) throws InterruptedException {
         System.out.println(System.getProperty("user.dir"));//user.dir指定了当前的路径
-        String jsonPath = System.getProperty("user.dir") + "\\crawler-core\\src\\main\\java\\com\\dang\\crawler\\core\\script\\" + "weibo_user.txt";
+        String jsonPath = System.getProperty("user.dir") + "\\crawler-core\\src\\test\\java\\com\\dang\\crawler\\core\\script\\" + "weibo_user.txt";
         String json= FileUtils.toString(jsonPath);
         JSONArray array = JSONObject.parseArray(json);
         for(int i =0;i<array.size();i++){

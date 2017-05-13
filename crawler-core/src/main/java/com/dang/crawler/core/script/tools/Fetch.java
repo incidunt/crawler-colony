@@ -16,12 +16,22 @@ public class Fetch {
     public static Page fetch(Crawler crawler) throws IOException {
         return PageService.fetcher(crawler);
     }
-    public static void webWork(WebWork webWork) throws Exception {
+    private static void webWork(WebWork webWork) throws Exception {
         if(webDriverPool == null){
             webDriverPool = new WebDriverPool(2,10);
         }
         WebDriver driver = webDriverPool.getFree();
         webWork.work(driver);
         webDriverPool.toFree(driver);
+    }
+    public static WebDriver getWebDriver(){
+        if(webDriverPool == null){
+            webDriverPool = new WebDriverPool(2,10);
+        }
+        WebDriver driver = webDriverPool.getFree();
+        return driver;
+    }
+    public static void freeDriver(WebDriver webDriver){
+        webDriverPool.toFree(webDriver);
     }
 }

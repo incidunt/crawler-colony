@@ -14,8 +14,8 @@ import java.util.List;
  * Created by mi on 2017/5/3.
  */
 public class CreateScript {
-    private static final String JOB_ID = "script_test";
-    private static final String JOB_NAME = "script_test";
+    private static final String JOB_ID = "script_test_speed";
+    private static final String JOB_NAME = "script_test_speed";
     private static final long JOB_PERIOD = 5L*24*60*60*1000;
     private static TaskService taskService = null;
     public static void main(String []args) throws Exception {
