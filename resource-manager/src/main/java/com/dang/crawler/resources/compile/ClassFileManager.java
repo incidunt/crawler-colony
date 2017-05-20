@@ -1,7 +1,6 @@
 package com.dang.crawler.resources.compile;
 
 import java.io.IOException;
-
 import javax.tools.*;
 
 /**

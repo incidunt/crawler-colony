@@ -8,15 +8,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Created by mi on 2017/5/9.
+ * Created by dang on 2017/5/9.
  */
 public class Crawler implements Serializable ,Cloneable {
     private static final Logger LOG = LoggerFactory.getLogger(Crawler.class);
-    private String jobId = "";
     private String taskName = "";
     private String url = "";
     private Map<String, String> header = new LinkedHashMap<String, String>();
-    private String body = "";
+    private String body = null;
     private Map<String, Object> info = new HashMap();
     @Override
     public Crawler clone(){
@@ -26,6 +25,10 @@ public class Crawler implements Serializable ,Cloneable {
             e.printStackTrace();
         }
         return new Crawler();
+    }
+    public Crawler putHeader(String key, String value){
+        header.put(key,value);
+        return this;
     }
 //    @Override
 //    public Crawler clone() {
@@ -74,6 +77,15 @@ public class Crawler implements Serializable ,Cloneable {
     public void setBody(String body) {
         this.body = body;
     }
+    public void appendBody(String body) {
+        if(this.body ==null){
+            this.body = body;
+        }
+        this.body += body;
+    }
+    public void appendUrl(String url) {
+        this.url += url;
+    }
 
     public Object get(String key) {
         return info.get(key);
@@ -82,18 +94,11 @@ public class Crawler implements Serializable ,Cloneable {
         this.info.put(key,value);
     }
 
-    public String getJobId() {
-        return jobId;
-    }
 
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
-    }
 
     @Override
     public String toString() {
         return "Crawler{" +
-                "jobId='" + jobId + '\'' +
                 ", taskName='" + taskName + '\'' +
                 ", url='" + url + '\'' +
                 ", header=" + header +

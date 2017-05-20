@@ -1,10 +1,10 @@
 package com.dang.crawler.core.control.impl;
 
-import com.dang.crawler.core.control.bean.Crawler;
 import com.dang.crawler.core.control.bean.JobCrawler;
 import com.dang.crawler.core.control.norm.Cache;
 import com.dang.crawler.core.script.norm.Script;
 import com.dang.crawler.resources.compile.DynamicEngine;
+import com.dang.crawler.resources.compile.JavaClassObject;
 import com.dang.crawler.resources.mysql.dao.JobTaskMapper;
 import com.dang.crawler.resources.mysql.model.JobTask;
 import org.slf4j.Logger;
@@ -17,6 +17,7 @@ import java.util.Map;
 
 /**
  * Created by dang on 17-5-10.
+ * 本机Script缓存容器 负责存储脚本缓存
  */
 @Service
 public class NativeScriptCache implements Cache<JobCrawler,Script>{
@@ -53,14 +54,26 @@ public class NativeScriptCache implements Cache<JobCrawler,Script>{
         JobTask jobTask = new JobTask();
         jobTask.setJobId(jobCrawler.getJob().getJobId());
         jobTask.setTaskName(jobCrawler.getCrawler().getTaskName());
-        jobTask = jobTaskMapper.select(jobTask);
+        jobTask = jobTaskMapper.load(jobTask);
+        if(jobTask==null)return null;
+        DynamicEngine dynamicEngine = DynamicEngine.getInstance();
         String fullClassName = "script."+jobCrawler.getJob().getJobId()+"."+jobCrawler.getCrawler().getTaskName();
-        Script script = (Script) DynamicEngine.getInstance().bytesToObject(fullClassName,jobTask.getBytes());
+        Script script = null;
+        try {
+            script = (Script) DynamicEngine.getInstance().bytesToObject(fullClassName,jobTask.getBytes());
+        }catch (Exception e){
+            log.info("获取class失败 ，重新编译>>"+jobTask.getJobId()+">"+jobTask.getTaskName());
+
+            JavaClassObject jco = dynamicEngine.javaCodeToJavaClassObject(fullClassName, jobTask.getCode());
+            jobTask.setBytes(jco.getBytes());
+            jobTaskMapper.update(jobTask);
+            script = (Script) DynamicEngine.getInstance().bytesToObject(fullClassName,jobTask.getBytes());
+        }
         cache.put(getKey(jobCrawler),new SoftReference<Script>(script));
         return script;
     }
 
     private String getKey(JobCrawler jobCrawler){
-        return jobCrawler.getCrawler().getJobId()+":"+jobCrawler.getCrawler().getTaskName();
+        return jobCrawler.getJob().getJobId()+":"+jobCrawler.getCrawler().getTaskName();
     }
 }

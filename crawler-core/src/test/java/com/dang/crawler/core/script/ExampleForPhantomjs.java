@@ -1,5 +1,6 @@
 package com.dang.crawler.core.script;
 
+import com.dang.crawler.resources.utils.PropertiesUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
@@ -9,13 +10,13 @@ import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 /**
- * Created by mi on 2017/5/2.
+ * Created by dang on 2017/5/2.
  */
 public class ExampleForPhantomjs {
     public static void main(String []args) throws InterruptedException {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setJavascriptEnabled(true);
-        caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, "D:\\Files\\MyCode\\USE\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");
+        caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, PropertiesUtils.getProperty("selenium.phantomjs.driver.path"));
         // set user-agent
         caps.setCapability("phantomjs.page.settings.userAgent",
                 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:25.0) Gecko/20100101 Firefox/25.0 ");
@@ -32,10 +33,12 @@ public class ExampleForPhantomjs {
         // cliArgsCap.add("--proxy-type=socks5");
         caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cliArgsCap);
         //WebDriver webDriver = new PhantomJSDriver(caps);
+        //System.setProperty("phantomjs.binary.path",PropertiesUtils.getProperty("selenium.phantomjs.driver.path"))
         WebDriver webDriver = new PhantomJSDriver(caps);
         webDriver.get("http://weibo.com/u/5616413326?topnav=1&wvr=6&topsug=1");
         Thread.sleep(5000);
         System.out.println(webDriver.getPageSource());
+        System.out.println(webDriver.getTitle());
         webDriver.close();
         webDriver.quit();
     }

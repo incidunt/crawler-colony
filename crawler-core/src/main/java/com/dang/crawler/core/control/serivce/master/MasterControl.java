@@ -14,6 +14,7 @@ public class MasterControl implements Runnable {
     @Override
     public void run() {
         Thread thread = new Thread(jobTimerThread);
+        thread.setName("JobTimerThread");
         thread.start();
     }
 }

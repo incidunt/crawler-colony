@@ -1,7 +1,6 @@
 package com.dang.crawler.core.parser;
 
 import com.dang.crawler.resources.utils.DataTypeUtils;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

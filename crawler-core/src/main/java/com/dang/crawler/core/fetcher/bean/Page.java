@@ -1,10 +1,8 @@
 package com.dang.crawler.core.fetcher.bean;
 
-
-
 import java.io.Serializable;
-
 import org.apache.http.HttpResponse;
+
 public class Page implements Serializable {
     private static final long serialVersionUID = -5146315260683733260L;
     private String content;

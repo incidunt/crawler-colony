@@ -18,5 +18,6 @@ public class DynaCompTest {
         DynamicEngine de = DynamicEngine.getInstance();
         Object instance =  de.javaCodeToObject(fullName,src.toString());
         System.out.println(instance.getClass().getName());
+        System.out.println();
     }
 }

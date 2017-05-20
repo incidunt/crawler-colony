@@ -1,10 +1,11 @@
-package script.sina_weibo;
+package script.old.sina_weibo_old;
 import com.dang.crawler.core.control.bean.Crawler;
+import com.dang.crawler.core.control.bean.Job;
 import com.dang.crawler.core.parser.utils.Base;
 import com.dang.crawler.core.script.norm.Script;
 import com.dang.crawler.core.fetcher.file.Downloader;
-import com.dang.crawler.core.fetcher.service.WebDriverFactory;
 import com.dang.crawler.core.script.norm.Task;
+import com.dang.crawler.core.script.tools.Fetch;
 import com.dang.crawler.resources.mongodb.MongoDB;
 import com.dang.crawler.resources.utils.DateUtils;
 import org.bson.Document;
@@ -17,16 +18,17 @@ import java.util.List;
  * Created by mi on 2017/5/3.
  */
 public class Page implements Script {
-    public List<Task> work(Crawler crawler) throws Exception {
+    public List<Task> work(Crawler crawler,Job job) throws Exception {
         System.out.println(crawler);
-        WebDriver web = WebDriverFactory.makeWebDriver(WebDriverFactory.Driver.chrome);
+        WebDriver web = Fetch.getWebDriver();
         web.get(crawler.getUrl());
+        Thread.sleep(2000);
         for(int i = 0;i<5;i++) {
             ((JavascriptExecutor) web).executeScript("document.body.scrollTop+=10000");
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         }
         Base base = new Base(web.getPageSource());
-        web.close();
+        Fetch.freeDriver(web);
         List<Document> dbList = new ArrayList<>();
         for(Base item:base.jsoup(".WB_detail").list()){
             Document map = new Document();

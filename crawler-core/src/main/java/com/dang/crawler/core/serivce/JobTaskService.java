@@ -1,8 +1,6 @@
 package com.dang.crawler.core.serivce;
 
-import com.dang.crawler.core.control.bean.Crawler;
 import com.dang.crawler.core.parser.utils.RegexUtils;
-import com.dang.crawler.core.script.norm.Script;
 import com.dang.crawler.resources.mysql.model.CrawlerJob;
 import com.dang.crawler.resources.compile.DynamicEngine;
 import com.dang.crawler.resources.compile.JavaClassObject;
@@ -14,10 +12,11 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by mi on 2017/5/3.
+ * Created by dang on 2017/5/3.
+ * 负责job  task 的创建工作
  */
 @Service
-public class TaskService {
+public class JobTaskService {
     @Resource
     CrawlerJobMapper crawlerJobMapper;
     @Resource

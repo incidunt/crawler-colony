@@ -25,6 +25,10 @@ public class FetchTest {
         Thread.sleep(5000);
         System.out.println(web.getTitle());
         System.out.println(web.getPageSource().length());
+        //web.close();
+        web.get("https://www.baidu.com/baidu?wd=%E7%BF%BB%E8%AF%91&tn=monline_4_dg&ie=utf-8");
+        Thread.sleep(3000);
+        System.out.println(web.getTitle());
        // System.out.println(web2.getPageSource().length());
        // Fetch.freeDriver(web);
     }

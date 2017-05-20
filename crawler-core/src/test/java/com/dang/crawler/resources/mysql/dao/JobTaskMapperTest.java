@@ -1,6 +1,7 @@
 package com.dang.crawler.resources.mysql.dao;
 
 import com.dang.crawler.core.control.bean.Crawler;
+import com.dang.crawler.core.control.bean.Job;
 import com.dang.crawler.core.script.norm.Script;
 import com.dang.crawler.resources.compile.DynamicEngine;
 import com.dang.crawler.resources.compile.JavaClassObject;
@@ -25,13 +26,17 @@ public class JobTaskMapperTest {
     }
     @Test
     public void testQueryByTaskId() throws Exception {
-        JobTask jobCode = new JobTask("script_test","Init");
-        jobCode = jobTaskMapper.select(jobCode);
+        String jobId = "sina_weibo_image";
+        String taskName = "Init";
+        JobTask jobCode = new JobTask(jobId,taskName);
+        jobCode = jobTaskMapper.load(jobCode);
         System.out.println(jobCode.getBytes().length);
         DynamicEngine de = DynamicEngine.getInstance();
-        //JavaClassObject jco = de.javaCodeToJavaClassObject("script.script_test.Init", jobCode.getCode());
-        Script script = (Script) de.javaCodeToObject("script.script_test.Init",jobCode.getCode());
-        script.work(new Crawler());
+        Object instance =  de.javaCodeToObject("script."+jobId+"."+taskName,jobCode.getCode());
+        JavaClassObject jco = de.javaCodeToJavaClassObject("script."+jobId+"."+taskName, jobCode.getCode());
+        Script script = (Script) de.javaCodeToObject("script."+jobId+"."+taskName,jobCode.getCode());
+       //Script script = (Script) instance;
+        script.work(new Crawler(),new Job());
 
     }
     @Test

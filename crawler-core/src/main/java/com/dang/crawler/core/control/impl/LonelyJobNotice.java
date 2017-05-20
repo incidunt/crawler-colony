@@ -4,12 +4,12 @@ import com.dang.crawler.core.control.bean.Job;
 import com.dang.crawler.core.control.norm.Notice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by dang on 17-5-11.
+ * 单机Job容器，负责存储运行的job信息
  */
 public class LonelyJobNotice implements Notice<Job,Job> {
     private static Logger log = LoggerFactory.getLogger(LonelyJobNotice.class);
@@ -20,7 +20,8 @@ public class LonelyJobNotice implements Notice<Job,Job> {
         int index = 0;
         if(map.size()==0) return null;
         for (Map.Entry<String, Job> entry : map.entrySet()) {
-            if(index==(count++)%map.size()){
+            if((index++)==(count)%map.size()){
+                count++;
                 return entry.getValue();
             }
         }

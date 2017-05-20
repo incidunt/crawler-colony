@@ -6,10 +6,10 @@ import org.openqa.selenium.WebDriver;
 /**
  * Created by dang on 17-5-10.
  */
-public class WebDriverPool extends BlockingPool<WebDriver> {
+public class WebDriverPool extends RevolPool<WebDriver> {
 
-    public WebDriverPool(int minPoolSize, int maxPoolSize) {
-        super(minPoolSize, maxPoolSize);
+    public WebDriverPool(int minPoolSize, int maxPoolSize,int timeOut) {
+        super(minPoolSize, maxPoolSize,timeOut);
     }
 
     @Override
@@ -20,7 +20,11 @@ public class WebDriverPool extends BlockingPool<WebDriver> {
 
     @Override
     protected WebDriver make() {
-        return WebDriverFactory.makeWebDriver(WebDriverFactory.Driver.phantomjs);
+        if(ApplicationContext.debug){
+            return WebDriverFactory.makeWebDriver(WebDriverFactory.Driver.chrome);
+        }else {
+            return WebDriverFactory.makeWebDriver(WebDriverFactory.Driver.phantomjs);
+        }
     }
 
 }

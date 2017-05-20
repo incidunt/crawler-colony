@@ -28,14 +28,14 @@
   <update id="update">
     UPDATE  crawler_job SET
     <if test="name != null"> name = #{name},</if>
-    <if test="period != null"> period = #{period},</if>
+    <if test="period != 0"> period = #{period},</if>
     <if test="nextStartDate != null"> nextStartDate = #{nextStartDate},</if>
     <if test="status != null"> status = #{status},</if>
-    <if test="priority != null"> priority = #{priority},</if>
-    <if test="maxThread != null"> maxThread = #{maxThread},</if>
+    <if test="priority != 0"> priority = #{priority},</if>
+    <if test="maxThread != 0"> maxThread = #{maxThread},</if>
     <if test="note != null"> note = #{note},</if>
-    <if test="projectId != null"> projectId = #{projectId},</if>
-    <if test="sourceId != null"> sourceId = #{sourceId},</if>
+    <if test="projectId != 0"> projectId = #{projectId},</if>
+    <if test="sourceId != 0"> sourceId = #{sourceId},</if>
        jobId = #{jobId}
     WHERE  jobId = #{jobId}
   </update>

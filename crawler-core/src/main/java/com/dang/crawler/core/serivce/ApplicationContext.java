@@ -18,41 +18,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class ApplicationContext {
     private static final ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext(new String[]{"classpath:spring-*.xml"});
-    public static Cache<JobCrawler,Script> scriptCache = (Cache<JobCrawler, Script>) getBean("nativeScriptCache");
     public static boolean debug = true;
-    public static Butler<Job,Crawler> crawlerButler = new LonelyCrawlerButler();
-    public static Notice<Job,Job> jobNotice = new LonelyJobNotice();
-    public static JobCounter jobCounter = new LonelyJobCounter();
+    public static Cache<JobCrawler,Script> scriptCache = (Cache<JobCrawler, Script>) getBean("nativeScriptCache");//脚本缓存
+    public static Butler<Job,Crawler> crawlerButler = new LonelyCrawlerButler();//crawler存储器
+    public static Notice<Job,Job> jobNotice = new LonelyJobNotice();            //job公示器
+    public static JobCounter jobCounter = new LonelyJobCounter();               //job计数器
 
     public static Object getBean(String beanName){
         return classPathXmlApplicationContext.getBean(beanName);
     }
     ////////////////////////////////////////////////////////////////////////////////////////
 
-    public static ClassPathXmlApplicationContext getClassPathXmlApplicationContext() {
-        return classPathXmlApplicationContext;
-    }
-
-    public static Cache<JobCrawler, Script> scriptCache() {
-        return scriptCache;
-    }
 
 
 
-    public static Butler<Job, Crawler> crawlerButler() {
-        return crawlerButler;
-    }
-
-
-    public static Notice<Job, Job> jobNotice() {
-        return jobNotice;
-    }
-
-    public static JobCounter getJobCounter() {
-        return jobCounter;
-    }
-
-    public static void setJobCounter(JobCounter jobCounter) {
-        ApplicationContext.jobCounter = jobCounter;
-    }
 }

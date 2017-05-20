@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * Created by mi on 2017/5/3.
+ * Created by dang on 2017/5/3.
  */
 public class TestCompile{
    public static void main(String []args) throws Exception {

@@ -11,6 +11,9 @@ public class PropertiesUtils {
     public static String getProperty(String name){
         return properties.getProperty(name);
     }
+    public static int getInt(String name){
+        return Integer.parseInt(properties.getProperty(name));
+    }
 
     private static Properties createProperties() {
         properties = new Properties();

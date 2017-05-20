@@ -4,7 +4,6 @@ import com.dang.crawler.resources.utils.DataTypeUtils;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
 import org.htmlcleaner.XPatherException;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -89,5 +88,8 @@ public class Xpath implements Iterable<Xpath>{
             return stringBuffer.toString();
         }
         return DataTypeUtils.listToString(stringList,"||");
+    }
+    public String str(){
+        return toString();
     }
 }

@@ -3,7 +3,6 @@ package com.dang.crawler.core.fetcher.service;
 import com.dang.crawler.core.fetcher.bean.ProxyInfo;
 import com.dang.crawler.resources.utils.PropertiesUtils;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -22,7 +21,8 @@ public class WebService {
         //logger.info("get:"+request.getUrl());
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setJavascriptEnabled(true);
-        caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, PropertiesUtils.getProperty("selenium.phantomjs.path"));
+        caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
+                PropertiesUtils.getProperty("selenium.phantomjs.driver.path"));
         // set user-agent
         caps.setCapability("phantomjs.page.settings.userAgent",
                 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:25.0) Gecko/20100101 Firefox/25.0 ");
@@ -46,7 +46,5 @@ public class WebService {
         WebDriver webDriver = new PhantomJSDriver(caps);
         return webDriver;
     }
-    public static void main(String []args){
-       System.out.println( PropertiesUtils.getProperty("selenium.phantomjs.path"));
-    }
+
 }

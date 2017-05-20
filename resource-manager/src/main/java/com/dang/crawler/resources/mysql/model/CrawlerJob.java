@@ -3,7 +3,7 @@ package com.dang.crawler.resources.mysql.model;
 import java.util.Date;
 
 /**
- * Created by mi on 2017/5/3.
+ * Created by dang on 2017/5/3.
  */
 public class CrawlerJob {
     private String jobId;
@@ -20,7 +20,7 @@ public class CrawlerJob {
 
     ////////////////////////////////////////////////////
     public static enum Status {
-        run("run","run"), stop("stop", "stop"), standby("standby", "standby"),goOn("goOn","goOn");
+        run("run","run"), stop("stop", "stop"),stopped("stopped","stopped"), standby("standby", "standby"),goOn("goOn","goOn");
         // 成员变量
         private String name;
         private String value;

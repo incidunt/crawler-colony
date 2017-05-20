@@ -85,4 +85,7 @@ public class Jsoup implements Iterable<Jsoup> {
            return "";
        }
     }
+    public String str(){
+        return toString();
+    }
 }

@@ -218,10 +218,9 @@ public class DateUtils {
         SimpleDateFormat sdf=new SimpleDateFormat(format);
         return sdf.format(date);
     }
-    public static Date stringConvertDate(String date, String format) throws ParseException {
-        Date resDate = new Date();
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        resDate = df.parse(date);
+    public static Date stringConvertDate(String date, String format) throws ParseException {//yyyy-MM-dd HH:mm:ss
+        DateFormat df = new SimpleDateFormat(format);
+        Date resDate = df.parse(date);
         return resDate;
     }
 

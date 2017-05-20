@@ -12,9 +12,11 @@ public class FileUtils {
 
     public static void save(String path,byte[] bytes) throws IOException {
         File file = new File(path);
-        if(!file.exists()){
+        if(file.exists()){
+            file.delete();
             file.createNewFile();
-
+        }else {
+            createFile(file);
         }
         OutputStream out = new FileOutputStream(file);
         out.write(bytes);
@@ -37,6 +39,35 @@ public class FileUtils {
     }
     public static String toString(String path) {
        return toString(new File(path));
+    }
+    public static boolean createFile(File file){
+        if(file.exists()){
+            return true;
+        }else {
+            File parent = file.getParentFile();
+            if(!parent.exists()) {
+                mkdir(parent);
+            }
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+    }
+    public static boolean mkdir(File file){
+        if(file.exists()){
+            return true;
+        }else {
+            File parent = file.getParentFile();
+            if(!parent.exists()) {
+                mkdir(parent);
+            }
+            file.mkdir();
+            return true;
+        }
     }
 
 }

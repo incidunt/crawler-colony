@@ -179,18 +179,18 @@ public class MongoDB {
         logger.debug("appendObject:"+collectionName+"|time:"+(System.currentTimeMillis()-start));
     }
 
-    public static void ensureIndex(String name,String collectionName,String parserDetailId,boolean unique) throws UnknownHostException {
-        if(indexSet.contains(name+collectionName+parserDetailId)){
+    public static void ensureIndex(String name,String collectionName,String attribute,boolean unique) throws UnknownHostException {
+        if(indexSet.contains(name+collectionName+attribute)){
             return;
         }else {
-            indexSet.add(name+collectionName+parserDetailId);
+            indexSet.add(name+collectionName+attribute);
         }
         if(haveIndex(collectionName,name)){
             return;
         }
         //创建索引
         BasicDBObject basicDb = new BasicDBObject();
-        basicDb.put(parserDetailId, 1);
+        basicDb.put(attribute, 1);
         IndexOptions indexOptions = new IndexOptions();
         indexOptions.background(true);
         indexOptions.unique(unique);

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dang.crawler.resources.mysql.dao.KeywordMapper" >
+  <resultMap id="BaseResultMap" type="com.dang.crawler.resources.mysql.model.Keyword" >
+    <id column="projectId" property="projectId"  />
+    <id column="kid" property="kid"  />
+    <result column="keyword" property="keyword"  />
+    <result column="note" property="note"  />
+    <result column="createDate" property="createDate"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name
+  </sql>
+
+  <insert id="insert"  parameterType="com.dang.crawler.resources.mysql.model.Keyword">
+    INSERT INTO keyword (projectId , kid  , keyword , note,createDate ) VALUES
+                        (#{projectId},#{kid},#{keyword},#{note},now())
+  </insert>
+  <insert id="insertAll"  useGeneratedKeys="true" parameterType="java.util.List">
+    <!--<selectKey resultType="long" keyProperty="kid" order="AFTER">-->
+      <!--SELECT-->
+      <!--LAST_INSERT_ID()-->
+    <!--</selectKey>-->
+    INSERT INTO keyword (projectId , kid  , keyword , note,createDate ) VALUES
+    <foreach collection="list" item="item" index="index" separator="," >
+      (#{item.projectId},#{item.kid},#{item.keyword},#{item.note},now())
+    </foreach>
+  </insert>
+
+  <select id="select"  parameterType="com.dang.crawler.resources.mysql.model.Keyword" resultMap="BaseResultMap">
+    select * from keyword where projectId = #{projectId}
+    <if test="kid !=0">and kid > #{kid}</if>
+    <if test="start !=0 and limit!=0">limit #{start},#{limit}</if>
+    <if test="start ==0 and limit!=0">limit #{limit}</if>
+  </select>
+
+  <select id="maxKid"  parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select max(kid) from keyword where projectId = #{projectId}
+  </select>
+</mapper>

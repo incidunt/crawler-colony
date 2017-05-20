@@ -1,9 +1,6 @@
 package com.dang.crawler.core.fetcher.bean;
 
-
-
 import com.dang.crawler.core.fetcher.http.HttpParamsCons;
-
 import java.io.Serializable;
 
 public class RequestInfo implements Serializable {

@@ -3,19 +3,25 @@ package com.dang.crawler.resources.mysql.model;
 import java.util.Date;
 
 /**
- * Created by mi on 2017/5/8.
+ * Created by dang on 2017/5/8.
  */
 public class CrawlerLog {
     private String jobId;
-    private String taskName;
     private long flag;
-    private long crawlerCount;
+    private String taskName;
+    private long successCount;
     private long dbCount;
     private long failCount;
     private long toDoCount;
     private Date createDate;
     private Date modifiedDate;
 
+    public CrawlerLog(){}
+    public CrawlerLog(String jobId,String taskName,long flag){
+        this.jobId = jobId;
+        this.taskName = taskName;
+        this.flag = flag;
+    }
     public String getJobId() {
         return jobId;
     }
@@ -40,12 +46,12 @@ public class CrawlerLog {
         this.flag = flag;
     }
 
-    public long getCrawlerCount() {
-        return crawlerCount;
+    public long getSuccessCount() {
+        return successCount;
     }
 
-    public void setCrawlerCount(long crawlerCount) {
-        this.crawlerCount = crawlerCount;
+    public void setSuccessCount(long successCount) {
+        this.successCount = successCount;
     }
 
     public long getFailCount() {

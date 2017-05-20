@@ -6,7 +6,6 @@ import com.dang.crawler.core.fetcher.service.PageService;
 import com.dang.crawler.core.fetcher.bean.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 
 /**

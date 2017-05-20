@@ -12,10 +12,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(locations = { "classpath:spring-*.xml"})
 public class TaskServiceTest {
-    TaskService taskService ;
+    JobTaskService jobTaskService ;
     @Before
     public void setUp() throws Exception {
-        taskService = (TaskService)new ClassPathXmlApplicationContext(new String[] { "classpath:spring-*.xml" }).getBean("taskService");
+        jobTaskService = (JobTaskService)new ClassPathXmlApplicationContext(new String[] { "classpath:spring-*.xml" }).getBean("taskService");
     }
     @Test
     public void testCreate() throws Exception {

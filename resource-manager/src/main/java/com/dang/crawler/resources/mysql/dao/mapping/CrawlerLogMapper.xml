@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dang.crawler.resources.mysql.dao.CrawlerLogMapper" >
+  <resultMap id="BaseResultMap" type="com.dang.crawler.resources.mysql.model.CrawlerLog" >
+    <id column="jobId" property="jobId"  />
+    <id column="flag" property="flag"  />
+    <id column="taskName" property="taskName"  />
+    <result column="successCount" property="successCount"  />
+    <result column="dbCount" property="dbCount"  />
+    <result column="failCount" property="failCount"  />
+    <result column="toDoCount" property="toDoCount"  />
+    <result column="createDate" property="createDate"  />
+    <result column="modifiedDate" property="modifiedDate"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name
+  </sql>
+  <insert id="insert"  parameterType="com.dang.crawler.resources.mysql.model.CrawlerLog">
+    INSERT INTO crawler_log ( jobId , flag , taskName , successCount , dbCount , failCount , toDoCount , createDate, modifiedDate) VALUES
+                        (#{jobId},#{flag},#{taskName},#{successCount},#{dbCount},#{failCount},#{toDoCount},now(),now())
+  </insert>
+
+  <update id="update" parameterType="com.dang.crawler.resources.mysql.model.CrawlerLog">
+    UPDATE  crawler_log SET
+    <if test="successCount != null"> successCount = #{successCount},</if>
+    <if test="dbCount != null"> dbCount = #{dbCount},</if>
+    <if test="failCount != null"> failCount = #{failCount},</if>
+    <if test="toDoCount != null"> toDoCount = #{toDoCount},</if>
+    modifiedDate = now()
+    WHERE  jobId = #{jobId} and flag = #{flag} and taskName = #{taskName}
+  </update>
+  <select id="getMaxFlag" parameterType="java.lang.String" resultType="java.lang.Long">
+    SELECT Max(flag) FROM crawler_log  WHERE  jobId = #{jobId} ;
+  </select>
+
+</mapper>
