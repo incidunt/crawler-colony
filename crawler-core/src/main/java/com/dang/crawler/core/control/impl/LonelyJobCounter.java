@@ -15,16 +15,16 @@ import java.util.Map;
  */
 public class LonelyJobCounter implements JobCounter {
     private CrawlerLogMapper crawlerLogMapper;
-    private Map<Job,Map<String,Integer>> map = new HashMap<>();
+    private Map<String,Map<String,Integer>> map = new HashMap<>();
     private int sun = 0;
     @Override
     public synchronized Integer update(Job job, String name, Integer count) {
         int result = 0;
-        Map<String, Integer> v = map.get(job);
+        Map<String, Integer> v = map.get(getKey(job));
         if(v ==null){
             Map<String, Integer> newValue = new HashMap<>();
             newValue.put(name,count);
-            map.put(job,newValue);
+            map.put(getKey(job),newValue);
             result = count;
         }else {
             if(v.containsKey(name)){
@@ -38,14 +38,14 @@ public class LonelyJobCounter implements JobCounter {
         }
         synchronized (this) {
             if (sun++ % 10 == 0) {
-                flush();
+                flush(null);
             }
         }
         return result;
     }
-    public synchronized void flush(){
-        for (Map.Entry<Job,Map<String,Integer>> entry : map.entrySet()) {
-            Job key = entry.getKey();
+    public synchronized void flush(Job job){
+        for (Map.Entry<String,Map<String,Integer>> entry : map.entrySet()) {
+            //Job key = entry.getKey();
             Map<String,CrawlerLog> logMap = new HashMap<>();
             for(Map.Entry<String,Integer> values : entry.getValue().entrySet()){
                 if(values.getKey().contains(":")){
@@ -54,7 +54,8 @@ public class LonelyJobCounter implements JobCounter {
                     String taskName = attr[1];
                     CrawlerLog log = logMap.get(taskName);
                     if(log == null) {
-                        log = new CrawlerLog(key.getJobId(),taskName,key.getFlag());
+                        String[] key = entry.getKey().split(":");
+                        log = new CrawlerLog(key[0],taskName,Long.parseLong(key[1]));
                     }
                     switch (type){
                         case "taskToDo":{log.setToDoCount(values.getValue());break;}
@@ -75,7 +76,7 @@ public class LonelyJobCounter implements JobCounter {
 
     @Override
     public synchronized Integer get(Job job, String name) {
-        Map<String, Integer> v = map.get(job);
+        Map<String, Integer> v = map.get(getKey(job));
         if(v!=null){
             if(v.get(name)!=null){
                 return v.get(name);
@@ -84,5 +85,13 @@ public class LonelyJobCounter implements JobCounter {
         return 0;
     }
 
+    @Override
+    public boolean remove(Job job) {
+        map.remove(getKey(job));
+        return false;
+    }
+    private String getKey(Job job){
+        return job.getJobId()+":"+job.getFlag();
+    }
 
 }

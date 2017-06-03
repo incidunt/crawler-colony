@@ -8,7 +8,7 @@ import com.dang.crawler.core.serivce.ApplicationContext;
  */
 public class StartCrawler {
     public static void main(String []args){
-        ApplicationContext.debug = false;
+        ApplicationContext.debug = true;
         MasterControl masterControl = (MasterControl) ApplicationContext.getBean("masterControl");
         Thread master = new Thread(masterControl);
         master.setName("MasterControl");

@@ -65,9 +65,9 @@ public class TaskWorkControl {
                         crawlerList.remove(i--);
                     }
                 }
-                ApplicationContext.crawlerButler.putAll(jobCrawler.getJob(), task.getCrawlerList());
-                ApplicationContext.jobCounter.update(jobCrawler.getJob(), JobCounter.Name.crawler.getName(),task.getCrawlerList().size());
-                ApplicationContext.jobCounter.update(jobCrawler.getJob(), JobCounter.Name.taskToDo.getName(task.getTaskName()),task.getCrawlerList().size());
+                int addsize = ApplicationContext.crawlerButler.putAll(jobCrawler.getJob(), task.getCrawlerList());
+                ApplicationContext.jobCounter.update(jobCrawler.getJob(), JobCounter.Name.crawler.getName(),addsize);
+                ApplicationContext.jobCounter.update(jobCrawler.getJob(), JobCounter.Name.taskToDo.getName(task.getTaskName()),addsize);
             }
         }
         //TODO

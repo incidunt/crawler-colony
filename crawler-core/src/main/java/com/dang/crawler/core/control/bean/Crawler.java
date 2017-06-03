@@ -17,6 +17,14 @@ public class Crawler implements Serializable ,Cloneable {
     private Map<String, String> header = new LinkedHashMap<String, String>();
     private String body = null;
     private Map<String, Object> info = new HashMap();
+    public Crawler(){}
+    public Crawler(String url){
+        this.url=url;
+    }
+    public Crawler(String url ,String body){
+        this.url = url;
+        this.body = body;
+    }
     @Override
     public Crawler clone(){
         try {
@@ -94,7 +102,13 @@ public class Crawler implements Serializable ,Cloneable {
         this.info.put(key,value);
     }
 
+    public Map<String, Object> getInfo() {
+        return info;
+    }
 
+    public void setInfo(Map<String, Object> info) {
+        this.info = info;
+    }
 
     @Override
     public String toString() {

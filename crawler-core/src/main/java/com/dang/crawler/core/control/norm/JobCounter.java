@@ -27,5 +27,5 @@ public interface JobCounter extends Counter<Job,String,Integer>  {
             return value;
         }
     }
-    void flush();
+    void flush(Job job);
 }

@@ -19,7 +19,7 @@ public class PageService {
             System.setProperty ("jsse.enableSNIExtension", "false");
         }
         Map<String,String> header = new HashMap<>();
-        header.put("Content-Type"," application/x-www-form-urlencoded; charset=UTF-8");
+        header.put("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
         header.put("Wicket-Ajax","true");
         header.put("Accept","application/xml, text/xml, */*; q=0.01");
         header.put("Accept-Encoding","gzip, deflate");
@@ -31,11 +31,16 @@ public class PageService {
         }
         Fetcher fetcher = getFetcher();
         Page fetcherPage;
-        if(crawler.getBody()==null||crawler.getBody().length()==0){//没有body 是get请求
+        if(crawler.getBody()==null){//没有body 是get请求
             fetcherPage = fetcher.requestGet(crawler.getUrl(), proxyInfo,header);
         }else{//有请求body体  使用post
             PostInfo postInfo = new PostInfo();
-            postInfo.setPostEnum(PostTypeEnum.STRING);
+            if(crawler.getBody().startsWith("{")||crawler.getBody().startsWith("[")){
+                postInfo.setPostEnum(PostTypeEnum.JSON);
+                header.put("Content-Type","application/json");
+            }else {
+                postInfo.setPostEnum(PostTypeEnum.STRING);
+            }
             postInfo.setPostContentString(crawler.getBody());
             fetcherPage = fetcher.requestPost(crawler.getUrl(),proxyInfo,header,postInfo);
         }

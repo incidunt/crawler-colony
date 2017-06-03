@@ -86,9 +86,11 @@ public class DB {
             Crawler nextCrawler = new Crawler();
             nextCrawler.setTaskName(crawler.getTaskName());
             nextCrawler.put("#keyworld.page",page+1);
-            ApplicationContext.crawlerButler.put(job,nextCrawler);
-            ApplicationContext.jobCounter.update(job, JobCounter.Name.crawler.getName(),1);
-            ApplicationContext.jobCounter.update(job, JobCounter.Name.taskToDo.getName(crawler.getTaskName()),1);
+            boolean isadd = ApplicationContext.crawlerButler.put(job, nextCrawler);
+            if(isadd) {
+                ApplicationContext.jobCounter.update(job, JobCounter.Name.crawler.getName(), 1);
+                ApplicationContext.jobCounter.update(job, JobCounter.Name.taskToDo.getName(crawler.getTaskName()), 1);
+            }
         }
         return list;
     }

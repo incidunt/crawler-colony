@@ -29,9 +29,9 @@ public class LonelyJobNotice implements Notice<Job,Job> {
     }
 
     @Override
-    public synchronized Job put(Job key, Job job) {
-        log.info("put>>"+key);
-        return map.put(key.getJobId(),job);
+    public synchronized boolean put(Job key, Job job) {
+        log.info("put>>"+key.getJobId());
+        return map.put(key.getJobId(),job)!=null;
     }
 
     @Override

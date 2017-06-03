@@ -14,7 +14,6 @@ import com.dang.crawler.resources.mysql.model.JobTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
@@ -58,6 +57,21 @@ public class JobTimerThread implements Runnable{
                     ApplicationContext.jobNotice.remove(job);
                     stopJob.setStatus(CrawlerJob.Status.stopped.getName());
                     crawlerJobMapper.update(stopJob);
+                    log.info("stopJob>>>"+stopJob.getJobId());
+                }
+            }
+            crawlerJob.setStatus(CrawlerJob.Status.kill.getName());
+            crawlerJob.setNextStartDate(null);
+            List<CrawlerJob> killList = crawlerJobMapper.list(crawlerJob);
+            if(killList!=null&&killList.size()>0){
+                for(CrawlerJob killJob :killList){
+                    Job job = new Job(killJob,getMaxFlag(killJob));
+                    ApplicationContext.jobNotice.remove(job);
+                    ApplicationContext.crawlerButler.remove(job);
+                    ApplicationContext.jobCounter.remove(job);
+                    killJob.setStatus(CrawlerJob.Status.standby.getName());
+                    crawlerJobMapper.update(killJob);
+                    log.info("killJob>>>"+killJob.getJobId());
                 }
             }
             crawlerJob.setStatus(CrawlerJob.Status.goOn.getName());
@@ -67,6 +81,7 @@ public class JobTimerThread implements Runnable{
                 ApplicationContext.jobNotice.put(job,job);
                 goOn.setStatus(CrawlerJob.Status.run.getName());
                 crawlerJobMapper.update(goOn);
+                log.info("goOnJob>>>"+goOn.getJobId());
             }
             try {
                 Thread.sleep(1000);

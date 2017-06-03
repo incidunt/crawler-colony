@@ -24,7 +24,7 @@ public class Fetch {
 //        webWork.work(driver);
 //        webDriverPool.toFree(driver);
 //    }
-    public static WebDriver getWebDriver(){
+    public static synchronized WebDriver getWebDriver(){
         if(webDriverPool == null){
             webDriverPool = new WebDriverPool(PropertiesUtils.getInt("webDriverPool.minPoolSize")
                     ,PropertiesUtils.getInt("webDriverPool.maxPoolSize"),PropertiesUtils.getInt("webDriverPool.timeout"));
@@ -32,7 +32,7 @@ public class Fetch {
         WebDriver driver = webDriverPool.getFree();
         return driver;
     }
-    public static void freeDriver(WebDriver webDriver){
+    public static synchronized void freeDriver(WebDriver webDriver){
         webDriverPool.toFree(webDriver);
     }
 }

@@ -11,8 +11,7 @@ import java.util.*;
  * Created by dang on 17-5-11.
  * 单机Crawler容器，负责存储多个job的海量crawler
  */
-public class
-LonelyCrawlerButler implements Butler<Job,Crawler> {
+public class LonelyCrawlerButler implements Butler<Job,Crawler> {
     private static Logger log = LoggerFactory.getLogger(LonelyCrawlerButler.class);
     public Map<String,Stack<Crawler>> map = new HashMap<>();
     @Override

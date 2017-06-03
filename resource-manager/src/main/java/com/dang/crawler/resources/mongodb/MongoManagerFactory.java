@@ -3,7 +3,8 @@ package com.dang.crawler.resources.mongodb;
 import com.dang.crawler.resources.utils.PropertiesUtils;
 import com.mongodb.*;
 import com.mongodb.client.MongoDatabase;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;

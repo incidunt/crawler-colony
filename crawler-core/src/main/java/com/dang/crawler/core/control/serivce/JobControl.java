@@ -2,6 +2,7 @@ package com.dang.crawler.core.control.serivce;
 
 import com.dang.crawler.core.control.bean.Crawler;
 import com.dang.crawler.core.control.bean.Job;
+import com.dang.crawler.core.control.norm.JobCounter;
 import com.dang.crawler.core.serivce.ApplicationContext;
 import com.dang.crawler.resources.mysql.dao.CrawlerJobMapper;
 import com.dang.crawler.resources.mysql.model.CrawlerJob;
@@ -29,7 +30,7 @@ public class JobControl implements Runnable {
         while (true){
             try {
                 Job job = ApplicationContext.jobNotice.notice();
-                if (taskWorkControl.freeSize() > 0 && job != null && job.getWorkThread() < job.getMaxThread()) {
+                if (taskWorkControl.freeSize() > 0 && job != null && getWorkThread(job) < job.getMaxThread()) {
                     load(job);
                 } else {
                     Thread.sleep(1000);
@@ -45,7 +46,7 @@ public class JobControl implements Runnable {
 
     private void load(Job job) {
         if(job==null)return;
-        for(int i =0;i<job.getPriority()&&taskWorkControl.freeSize()>0&&job.getWorkThread()<job.getMaxThread();i++) {
+        for(int i =0;i<job.getPriority()&&taskWorkControl.freeSize()>0&&getWorkThread(job)<job.getMaxThread();i++) {
             Crawler crawler = ApplicationContext.crawlerButler.get(job);
             if(crawler!=null) {
                 taskWorkControl.addCrawler(job,crawler);
@@ -54,9 +55,12 @@ public class JobControl implements Runnable {
             }
         }
     }
+    public static int getWorkThread(Job job){
+        return ApplicationContext.jobCounter.get(job, JobCounter.Name.thread.getName());
+    }
     public static void jobFinish(Job job){
         log.info("jobFinish<<"+job.getJobId()+"<"+job.getFlag());
-        ApplicationContext.jobCounter.flush();
+        ApplicationContext.jobCounter.flush(job);
         ApplicationContext.jobNotice.remove(job);
         ApplicationContext.crawlerButler.remove(job);
         CrawlerJob crawlerJob = new CrawlerJob();

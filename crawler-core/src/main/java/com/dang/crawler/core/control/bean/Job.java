@@ -13,9 +13,6 @@ public class Job {
     private int maxThread;
     private long flag;
     private int projectId;
-    //private int CrawlerCounter;
-    //private int workThread;
-
     public Job(){}
     public Job(CrawlerJob crawlerJob,long flag){
         this.jobId = crawlerJob.getJobId();
@@ -55,10 +52,6 @@ public class Job {
 
     public void setFlag(long flag) {
         this.flag = flag;
-    }
-
-    public int getWorkThread() {
-        return ApplicationContext.jobCounter.get(this, JobCounter.Name.thread.getName());
     }
 
     public int getProjectId() {

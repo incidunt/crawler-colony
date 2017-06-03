@@ -61,7 +61,7 @@ public class NativeScriptCache implements Cache<JobCrawler,Script>{
         Script script = null;
         try {
             script = (Script) DynamicEngine.getInstance().bytesToObject(fullClassName,jobTask.getBytes());
-        }catch (Exception e){
+        }catch (Error e){
             log.info("获取class失败 ，重新编译>>"+jobTask.getJobId()+">"+jobTask.getTaskName());
 
             JavaClassObject jco = dynamicEngine.javaCodeToJavaClassObject(fullClassName, jobTask.getCode());

@@ -1,6 +1,6 @@
 package com.dang.crawler.core.parser.utils;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.TagNode;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

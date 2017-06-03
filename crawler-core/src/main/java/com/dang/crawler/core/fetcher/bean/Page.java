@@ -48,4 +48,7 @@ public class Page implements Serializable {
     public String getHeader(String key){
         return response.getFirstHeader(key).getValue();
     }
+    public String getSetCookie(){
+        return getHeader("Set-Cookie");
+    }
 }
