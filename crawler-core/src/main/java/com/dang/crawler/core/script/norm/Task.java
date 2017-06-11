@@ -2,13 +2,15 @@ package com.dang.crawler.core.script.norm;
 
 import com.dang.crawler.core.control.bean.Crawler;
 import com.dang.crawler.core.control.bean.Job;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by dang on 2017/5/3.
  */
 public class Task {
-    private List<Crawler> crawlerList;
+    private List<Crawler> crawlerList = new ArrayList<>();
     private String taskName;
     public Task(List<Crawler> crawlerList , String taskName){
         for(Crawler crawler:crawlerList){
@@ -22,9 +24,18 @@ public class Task {
         this.crawlerList.add(crawler);
         this.taskName = taskName;
     }
-
     public Task(List<Crawler> crawlerList , Script script){
         this.crawlerList = crawlerList;
+        if(crawlerList!=null&&crawlerList.size()>0){
+            try {
+                script.work(crawlerList.get(0),new Job());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public Task(Crawler crawler , Script script){
+        crawlerList.add(crawler);
         if(crawlerList!=null&&crawlerList.size()>0){
             try {
                 script.work(crawlerList.get(0),new Job());

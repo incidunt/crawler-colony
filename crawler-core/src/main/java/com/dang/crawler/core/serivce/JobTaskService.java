@@ -1,5 +1,6 @@
 package com.dang.crawler.core.serivce;
 
+import com.dang.crawler.core.control.bean.Crawler;
 import com.dang.crawler.core.parser.utils.RegexUtils;
 import com.dang.crawler.core.script.annotation.JobInfo;
 import com.dang.crawler.core.script.annotation.JobInfoUtil;
@@ -38,6 +39,8 @@ public class JobTaskService {
             code = convert(code);
             DynamicEngine de = DynamicEngine.getInstance();
             JavaClassObject jco = de.javaCodeToJavaClassObject(fullName, code);
+            Script script = (Script) de.bytesToObject(fullName,jco.getBytes());
+            System.out.println(script);
             JobTask jobTask = new JobTask(crawlerJob.getJobId(),fullName.substring(fullName.lastIndexOf(".")+1));
             jobTask.setCode(code);
             jobTask.setBytes(jco.getBytes());

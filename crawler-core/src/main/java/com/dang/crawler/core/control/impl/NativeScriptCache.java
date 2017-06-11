@@ -56,22 +56,33 @@ public class NativeScriptCache implements Cache<JobCrawler,Script>{
         jobTask.setTaskName(jobCrawler.getCrawler().getTaskName());
         jobTask = jobTaskMapper.load(jobTask);
         if(jobTask==null)return null;
-        DynamicEngine dynamicEngine = DynamicEngine.getInstance();
         String fullClassName = "script."+jobCrawler.getJob().getJobId()+"."+jobCrawler.getCrawler().getTaskName();
         Script script = null;
         try {
-            script = (Script) DynamicEngine.getInstance().bytesToObject(fullClassName,jobTask.getBytes());
-        }catch (Error e){
-            log.info("获取class失败 ，重新编译>>"+jobTask.getJobId()+">"+jobTask.getTaskName());
-
-            JavaClassObject jco = dynamicEngine.javaCodeToJavaClassObject(fullClassName, jobTask.getCode());
-            jobTask.setBytes(jco.getBytes());
-            jobTaskMapper.update(jobTask);
-            script = (Script) DynamicEngine.getInstance().bytesToObject(fullClassName,jobTask.getBytes());
+            if(jobTask.getBytes()!=null) {
+                script = (Script) DynamicEngine.getInstance().bytesToObject(fullClassName, jobTask.getBytes());
+            }else {
+                script = compile(jobTask,fullClassName);
+            }
+        }catch (Exception e){
+            script = compile(jobTask,fullClassName);
+        }catch (Error error){
+            script = compile(jobTask,fullClassName);
         }
         cache.put(getKey(jobCrawler),new SoftReference<Script>(script));
         return script;
     }
+    private Script compile(JobTask jobTask, String fullClassName) throws Exception {
+        DynamicEngine dynamicEngine = DynamicEngine.getInstance();
+        log.info("获取class失败 ，重新编译>>"+jobTask.getJobId()+">"+jobTask.getTaskName());
+
+        JavaClassObject jco = dynamicEngine.javaCodeToJavaClassObject(fullClassName, jobTask.getCode());
+        jobTask.setBytes(jco.getBytes());
+        jobTaskMapper.update(jobTask);
+        Script script = (Script) DynamicEngine.getInstance().bytesToObject(fullClassName,jobTask.getBytes());
+        return script;
+    }
+
 
     private String getKey(JobCrawler jobCrawler){
         return jobCrawler.getJob().getJobId()+":"+jobCrawler.getCrawler().getTaskName();

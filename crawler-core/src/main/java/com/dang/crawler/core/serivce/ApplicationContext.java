@@ -15,13 +15,21 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * Created by dang on 17-5-11.
  */
 public class ApplicationContext {
-    private static final ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext(new String[]{"classpath:spring-*.xml"});
+    private static final ClassPathXmlApplicationContext classPathXmlApplicationContext =
+            new ClassPathXmlApplicationContext(new String[]{"classpath:spring-*.xml"});
     public static boolean debug = false;
+    public static boolean isColony = false;
     public static Cache<JobCrawler,Script> scriptCache = (Cache<JobCrawler, Script>) getBean("nativeScriptCache");//脚本缓存
-    public static Butler<Job,Crawler> crawlerButler = new RedisCrawlerButler();//crawler存储器
-    public static Notice<Job,Job> jobNotice = new RedisJobNotice();            //job公示器
-    public static JobCounter jobCounter = new RedisJobCounter();               //job计数器
-
+    public static Butler<Job,Crawler> crawlerButler = new LonelyCrawlerButler();//crawler存储器
+    public static Notice<Job,Job> jobNotice = new LonelyJobNotice();            //job公示器
+    public static JobCounter jobCounter = new LonelyJobCounter();               //job计数器
+    static {
+        if(isColony){
+            crawlerButler = new RedisCrawlerButler();//crawler存储器
+            jobNotice = new RedisJobNotice();            //job公示器
+            jobCounter = new RedisJobCounter();               //job计数器
+        }
+    }
     public static Object getBean(String beanName){
         return classPathXmlApplicationContext.getBean(beanName);
     }

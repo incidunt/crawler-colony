@@ -1,7 +1,4 @@
 package com.dang.crawler.resources.compile.old;//FlyFile
-
-//package com.jdjr.crawler.work.component;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -90,7 +90,8 @@ public class Fetcher {
     }
 
     private RequestConfig buildRequestConfig(ProxyInfo proxyInfo) {
-        return RequestConfig.custom().setSocketTimeout(this.requestInfo.getSocketTimeout()).setConnectionRequestTimeout(this.requestInfo.getConnRequestTimeout()).setConnectTimeout(this.requestInfo.getConnTimeout()).setProxy(this.buildProxy(proxyInfo)).setContentCompressionEnabled(this.requestInfo.isContentCompressionEnabled()).setCookieSpec("standard-strict").setCircularRedirectsAllowed(false).build();
+        return RequestConfig.custom().setSocketTimeout(this.requestInfo.getSocketTimeout()).setConnectionRequestTimeout(this.requestInfo.getConnRequestTimeout()).setConnectTimeout(this.requestInfo.getConnTimeout()).setProxy(this.buildProxy(proxyInfo)).
+                setContentCompressionEnabled(this.requestInfo.isContentCompressionEnabled()).setCookieSpec("standard-strict").setCircularRedirectsAllowed(false).build();
     }
 
     private HttpHost buildProxy(ProxyInfo proxyInfo) {

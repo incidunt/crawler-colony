@@ -1,5 +1,8 @@
 package com.dang.crawler.core.fetcher.service;
 
+
+import org.eclipse.jetty.util.ArrayQueue;
+
 import java.util.*;
 
 /**
@@ -20,8 +23,8 @@ public abstract class RevolPool<T> {
         this.minPoolSize = minPoolSize;
         this.maxPoolSize = maxPoolSize;
         this.timeout = timeout;
-        freeQueue = new ArrayDeque<T>(maxPoolSize);
-        usingQueue = new ArrayDeque<T>(maxPoolSize);
+        freeQueue = new ArrayQueue<T>(maxPoolSize);
+        usingQueue = new ArrayQueue<T>(maxPoolSize);
         dateMap = new HashMap<>(maxPoolSize);
         countMap = new HashMap<>(maxPoolSize);
     }

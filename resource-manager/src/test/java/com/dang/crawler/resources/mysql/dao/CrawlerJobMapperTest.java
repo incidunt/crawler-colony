@@ -58,7 +58,7 @@ public class CrawlerJobMapperTest {
     @Test
     public void list(){
         CrawlerJob crawlerJob = new CrawlerJob();
-        crawlerJob.setStatus(CrawlerJob.Status.run.getName());
+        crawlerJob.setStatus(CrawlerJob.Status.standby.getName());
         crawlerJob.setNextStartDate(new Date());
         List<CrawlerJob> list = crawlerJobMapper.list(crawlerJob);
         for(CrawlerJob crawleJob :list){

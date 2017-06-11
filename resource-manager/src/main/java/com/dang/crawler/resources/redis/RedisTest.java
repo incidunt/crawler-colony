@@ -27,12 +27,6 @@ public class RedisTest {
         Set<String> keys = jedis.keys("*");
         System.out.println(keys);
         System.out.println("清空数据："+jedis.flushDB());
-        for(int i=0;i<10000;i++){
-            Long res = jedis.hincrBy("a", "b", 5);
-            res = jedis.hincrBy("a", "b", -3);
-            System.out.println(res);
-        }
-
     }
     @Test
     public void testKey() throws InterruptedException{
