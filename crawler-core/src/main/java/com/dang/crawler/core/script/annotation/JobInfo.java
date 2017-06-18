@@ -15,7 +15,7 @@ public @interface JobInfo{
      */
     String id() default "";
     String name() default "";
-    long period() default 30*24*60*60*1000;
+    int period() default 30*24*60*60*1000;
     int priority() default 10;
     int maxThread() default  10;
     String note() default "";

@@ -38,7 +38,7 @@ class DownloadThread implements Runnable{
 
     private void saveFile(String path,Page page) {
         try {
-            FileUtils.save(path,page.getResponseBytes());
+            FileUtils.save(path,page.getResponseBytes(),false);
         } catch (IOException e) {
             logger.error("file save error",e);
         }

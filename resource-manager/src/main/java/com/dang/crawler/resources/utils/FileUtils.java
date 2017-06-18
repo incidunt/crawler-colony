@@ -10,18 +10,16 @@ import java.io.*;
 public class FileUtils {
     private static Logger log = LoggerFactory.getLogger(FileUtils.class);
 
-    public static void save(String path,byte[] bytes) throws IOException {
+    public static void save(String path,byte[] bytes,boolean append) throws IOException {
         File file = new File(path);
-        if(file.exists()){
-            file.delete();
-            file.createNewFile();
-        }else {
+        if(!file.exists()){
             createFile(file);
         }
-        OutputStream out = new FileOutputStream(file);
+        OutputStream out = new FileOutputStream(file,append);
         out.write(bytes);
         out.close();
     }
+
     public static String toString(File file){
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));

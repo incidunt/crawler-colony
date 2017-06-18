@@ -6,9 +6,10 @@ import java.util.Date;
  * Created by dang on 2017/5/3.
  */
 public class CrawlerJob {
+    private int id;
     private String jobId;
     private String name;
-    private long period;//周期
+    private int period;//周期
     private Date nextStartDate;
     private String status;
     private int priority;
@@ -54,11 +55,11 @@ public class CrawlerJob {
         this.name = name;
     }
 
-    public long getPeriod() {
+    public int getPeriod() {
         return period;
     }
 
-    public void setPeriod(long period) {
+    public void setPeriod(int period) {
         this.period = period;
     }
 

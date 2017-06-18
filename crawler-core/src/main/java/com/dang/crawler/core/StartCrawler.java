@@ -12,8 +12,14 @@ import org.slf4j.LoggerFactory;
  */
 public class StartCrawler {
     private static Logger logger = LoggerFactory.getLogger(StartCrawler.class);
-    public static void main(String []args) throws InterruptedException {
+    public static void main(String []args)  {
         logger.info("StartCrawler>>start1");
+        System.setProperty ("jsse.enableSNIExtension", "false");
+//        try {
+//           // MyTools.main(null);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
         ApplicationContext.debug = false;
         ApplicationContext.isColony = false;
         MasterControl masterControl = (MasterControl) ApplicationContext.getBean("masterControl");

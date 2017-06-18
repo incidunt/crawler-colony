@@ -4,17 +4,18 @@ package com.dang.crawler.resources.mysql.model;
  * Created by dangqihe on 2017/4/25.
  */
 public class Project {
-    private int projectId;
+    private int id;
     private String name;
     private String note;
 
     //////////////////////////////////////////////
-    public int getProjectId() {
-        return projectId;
+
+    public int getId() {
+        return id;
     }
 
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

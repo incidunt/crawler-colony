@@ -7,6 +7,7 @@ import java.util.Date;
  * Created by mi on 2017/5/3.
  */
 public class JobTask {
+    private int id;
     private String jobId;
     private String taskName;
     private String code;

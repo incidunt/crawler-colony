@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * Created by dang on 2017/5/9.
@@ -34,7 +35,7 @@ public class JobControl implements Runnable {
                     load(job);
                 } else {
                     Thread.sleep(1000);
-                    if((count++)%10==0) {
+                    if((count++)%100==0) {
                         log.info("no job");
                     }
                 }
@@ -46,7 +47,10 @@ public class JobControl implements Runnable {
 
     private void load(Job job) {
         if(job==null)return;
-        for(int i =0;i<job.getPriority()&&taskWorkControl.freeSize()>0&&getWorkThread(job)<job.getMaxThread();i++) {
+        log.debug("load job >>>>"+job.getJobId());
+        int free = taskWorkControl.freeSize();
+        int addThread = job.getMaxThread() - getWorkThread(job);
+        for(int i =0;i<Math.min(free,addThread)&&i<job.getPriority();i++) {
             Crawler crawler = ApplicationContext.crawlerButler.get(job);
             if(crawler!=null) {
                 taskWorkControl.addCrawler(job,crawler);

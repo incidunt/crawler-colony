@@ -6,6 +6,7 @@ import java.util.Date;
  * Created by dang on 2017/5/8.
  */
 public class Keyword {
+    private int id;
     private int projectId;
     private int kid ;
     private String keyword;
@@ -22,6 +23,7 @@ public class Keyword {
         this.keyword = keyword;
         this.note = note;
     }
+
     public int getId() {
         return kid;
     }

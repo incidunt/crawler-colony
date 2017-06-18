@@ -4,7 +4,7 @@ package com.dang.crawler.resources.mysql.model;
  * Created by mi on 2017/5/3.
  */
 public class Source {
-    private int sourceId;
+    private int id;
     private String name;
     private String url;
     private String note;
@@ -12,12 +12,12 @@ public class Source {
     /////////////////////////////////
 
 
-    public int getSourceId() {
-        return sourceId;
+    public int getId() {
+        return id;
     }
 
-    public void setSourceId(int sourceId) {
-        this.sourceId = sourceId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

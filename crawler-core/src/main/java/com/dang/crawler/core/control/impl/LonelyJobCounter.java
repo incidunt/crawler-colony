@@ -16,7 +16,7 @@ import java.util.Map;
 public class LonelyJobCounter implements JobCounter {
     private CrawlerLogMapper crawlerLogMapper;
     private Map<String,Map<String,Integer>> map = new HashMap<>();
-    private int sun = 0;
+    private volatile int sun = 0;
     @Override
     public synchronized Integer update(Job job, String name, Integer count) {
         int result = 0;
@@ -36,11 +36,11 @@ public class LonelyJobCounter implements JobCounter {
                 result = count;
             }
         }
-        synchronized (this) {
-            if (sun++ % 10 == 0) {
+
+            if (sun++ % 1000 == 0) {
                 flush(null);
             }
-        }
+
         return result;
     }
     public synchronized void flush(Job job){

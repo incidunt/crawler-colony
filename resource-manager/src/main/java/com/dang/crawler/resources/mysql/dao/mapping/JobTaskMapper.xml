@@ -13,16 +13,16 @@
   </sql>
 
   <insert id="insert"  parameterType="com.dang.crawler.resources.mysql.model.JobTask">
-    INSERT INTO job_task (jobId , taskName  , code , bytes ,date) VALUES
+    INSERT INTO crawler_job_task (jobId , taskName  , code , bytes ,date) VALUES
                           (#{jobId},#{taskName},#{code},#{bytes},now())
   </insert>
   <delete id="delete" parameterType = "com.dang.crawler.resources.mysql.model.JobTask">
-    DELETE  FROM job_task WHERE 1>0
+    DELETE  FROM crawler_job_task WHERE 1>0
     <if test="jobId != null">AND jobId = #{jobId}</if>
     <if test="taskName != null">AND taskName = #{taskName}</if>
   </delete>
   <update id="update">
-    UPDATE  job_task
+    UPDATE  crawler_job_task
     <set>
       <if test="code != null">code = #{code},</if>
       <if test="bytes != null">bytes = #{bytes},</if>
@@ -31,16 +31,16 @@
     WHERE  jobId = #{jobId} and taskName = #{taskName}
   </update>
   <select id="load" parameterType="com.dang.crawler.resources.mysql.model.JobTask" resultMap="BaseResultMap">
-    select *  from job_task where 1>0
+    select *  from crawler_job_task where 1>0
     <if test="jobId != null">AND jobId = #{jobId}</if>
     <if test="taskName != null">AND taskName = #{taskName}</if>
   </select>
   <select id="select" parameterType="com.dang.crawler.resources.mysql.model.JobTask" resultMap="BaseResultMap">
-    select *  from job_task where 1>0
+    select *  from crawler_job_task where 1>0
     <if test="jobId != null">AND jobId = #{jobId}</if>
     <if test="taskName != null">AND taskName = #{taskName}</if>
   </select>
   <select id="list" parameterType="com.dang.crawler.resources.mysql.model.JobTask" resultMap="BaseResultMap">
-    select * from job_task;
+    select * from crawler_job_task;
   </select>
 </mapper>

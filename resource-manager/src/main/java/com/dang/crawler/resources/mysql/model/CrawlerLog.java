@@ -6,6 +6,7 @@ import java.util.Date;
  * Created by dang on 2017/5/8.
  */
 public class CrawlerLog {
+    private int id;
     private String jobId;
     private long flag;
     private String taskName;

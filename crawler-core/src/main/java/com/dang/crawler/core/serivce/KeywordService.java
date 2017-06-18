@@ -23,10 +23,17 @@ public class KeywordService {
         }catch (Exception e){
         }
         List<Keyword> keywordList = new ArrayList<>();
+        List<List> list = new ArrayList<>();
+        int index = 0;
         for(Map.Entry<String,String> entry :map.entrySet()){
+            index++;
             Keyword keyword = new Keyword(projectId,++max,entry.getKey(),entry.getValue());
             //keywordMapper.insert(keyword);
             keywordList.add(keyword);
+            if(index%1000==0){
+                keywordMapper.insertAll(keywordList);
+                keywordList.clear();
+            }
         }
         keywordMapper.insertAll(keywordList);
     }
@@ -35,9 +42,14 @@ public class KeywordService {
         keyword.setProjectId(projectId);
         keyword.setKid(page*szie);
         keyword.setLimit(szie);
-//        keyword.setLimit(szie);
-//        keyword.setStart(page);
         return keywordMapper.select(keyword);
     }
+    public void delete(int projectId,int kid){
+        Keyword keyword = new Keyword();
+        keyword.setProjectId(projectId);
+        keyword.setKid(kid);
+        keywordMapper.delete(keyword);
+    }
+
 
 }

@@ -30,7 +30,7 @@ public class DB {
     private static DBInterface mySQL = new MySQL();
     public static void saveFile(String path,byte[] bytes){
         try {
-            FileUtils.save(PropertiesUtils.getProperty("file.output.base.path")+path,bytes);
+            FileUtils.save(PropertiesUtils.getProperty("file.output.base.path")+path,bytes,false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -48,7 +48,7 @@ public class DB {
             page = (int) crawler.get("#keyworld.page");
         }
         List<Keyword> list = mySQL.getKeyWorld(job.getProjectId(),page,szie);
-        if(list.size()==szie){
+        if(list.size()>0){
             Crawler nextCrawler = new Crawler();
             nextCrawler.setTaskName(crawler.getTaskName());
             nextCrawler.put("#keyworld.page",page+1);

@@ -10,6 +10,8 @@ import java.util.List;
 public interface KeywordMapper {
     void insert(Keyword keyword);
     void insertAll(List<Keyword> keywords);
+    void delete(Keyword keyword);
     List<Keyword> select(Keyword keyword);
     int maxKid(int projectId);
+
 }

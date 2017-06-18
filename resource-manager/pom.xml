@@ -5,13 +5,13 @@
     <parent>
         <groupId>com.dang.crawler</groupId>
         <artifactId>crawler-colony</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0-staging-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>resource-manager</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-staging-SNAPSHOT</version>
     <name>resource-manager</name>
     <properties>
         <curator-version>2.8.0</curator-version>
@@ -92,61 +92,22 @@
     <profiles>
         <profile>
             <id>dev</id>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                    </resource>
-                    <resource>
-                        <directory>src/main/java</directory>
-                    </resource>
-                    <resource>
-                        <directory>${profiles.dir}/dev</directory>
-                    </resource>
-                </resources>
-            </build>
             <properties>
-                <profile.dir>${profiles.dir}/dev</profile.dir>
+                <profile.dir>${profiles.base}/dev</profile.dir>
             </properties>
         </profile>
-        <profile>
-            <id>it</id>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                    </resource>
-                    <resource>
-                        <directory>src/main/java</directory>
-                    </resource>
-                    <resource>
-                        <directory>${profiles.dir}/it</directory>
-                    </resource>
-                </resources>
-            </build>
-            <properties>
-                <profile.dir>${profiles.dir}/it</profile.dir>
-            </properties>
-        </profile>
-        <profile>
-            <id>product</id>
-            <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                    </resource>
-                    <resource>
-                        <directory>src/main/java</directory>
-                    </resource>
-                    <resource>
-                        <directory>${profiles.dir}/product</directory>
-                    </resource>
-                </resources>
-            </build>
-            <properties>
-                <profile.dir>${profiles.dir}/product</profile.dir>
-            </properties>
-        </profile>
+        <!--<profile>-->
+            <!--<id>it</id>-->
+            <!--<properties>-->
+                <!--<profile.dir>${profiles.dir}/it</profile.dir>-->
+            <!--</properties>-->
+        <!--</profile>-->
+        <!--<profile>-->
+            <!--<id>product</id>-->
+            <!--<properties>-->
+                <!--<profile.dir>${profiles.dir}/product</profile.dir>-->
+            <!--</properties>-->
+        <!--</profile>-->
     </profiles>
     <!--====================================================================================== -->
     <!--编译 -->
@@ -161,10 +122,9 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
-            <!--<resource>-->
-            <!--<directory>src/main/profiles/dev</directory>-->
-            <!--<filtering>true</filtering>-->
-            <!--</resource>-->
+            <resource>
+                <directory>${profile.dir}</directory>
+            </resource>
             <resource>
                 <directory>${profile.dir}</directory>
                 <targetPath>${project.build.directory}/conf</targetPath>

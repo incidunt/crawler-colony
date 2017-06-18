@@ -20,11 +20,11 @@ public class LonelyCrawlerButler implements Butler<Job,Crawler> {
         Stack<Crawler> stack = map.get(getKey(job));
         boolean result = false;
         if(stack!=null){
-            return stack.push(crawler)==null;
+            return stack.push(crawler)!=null;
         }else {
             stack = new Stack<Crawler>();
             map.put(getKey(job),stack);
-            return stack.push(crawler)==null;
+            return stack.push(crawler)!=null;
         }
     }
 
