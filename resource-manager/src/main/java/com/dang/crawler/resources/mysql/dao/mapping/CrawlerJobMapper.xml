@@ -25,7 +25,7 @@
   <delete id="delete" parameterType="java.lang.String">
     DELETE FROM crawler_job WHERE jobId = #{jobId};
   </delete>
-  <update id="update">
+  <update id="update" parameterType="com.dang.crawler.resources.mysql.model.CrawlerJob">
     UPDATE  crawler_job SET
     <if test="name != null"> name = #{name},</if>
     <if test="period != 0"> period = #{period},</if>
@@ -40,6 +40,11 @@
     WHERE  jobId = #{jobId}
   </update>
   <select id="select" parameterType="com.dang.crawler.resources.mysql.model.CrawlerJob" resultMap="BaseResultMap">
+    select * from crawler_job where 1>0
+    <if test="jobId != null">AND jobId = #{jobId}</if>
+    <if test="name != null">AND name = #{name}</if>
+  </select>
+  <select id="load" parameterType="com.dang.crawler.resources.mysql.model.CrawlerJob" resultMap="BaseResultMap">
     select * from crawler_job where 1>0
     <if test="jobId != null">AND jobId = #{jobId}</if>
     <if test="name != null">AND name = #{name}</if>

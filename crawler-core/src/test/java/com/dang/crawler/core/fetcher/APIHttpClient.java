@@ -13,8 +13,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 public class APIHttpClient {
 
@@ -105,11 +103,11 @@ public class APIHttpClient {
 
     public static void main(String[] args) {
         APIHttpClient ac = new APIHttpClient(apiURL);
-        JsonArray arry = new JsonArray();
-        JsonObject j = new JsonObject();
-        j.addProperty("validate", "17060910209");
-        arry.add(j);
-        System.out.println(ac.post(j.toString()));
+//        JsonArray arry = new JsonArray();
+//        JsonObject j = new JsonObject();
+//        j.addProperty("validate", "17060910209");
+//        arry.add(j);
+//        System.out.println(ac.post(j.toString()));
     }
 
     /**

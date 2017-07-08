@@ -12,13 +12,13 @@ import com.dang.crawler.core.script.norm.Script;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Created by dang on 17-5-11.
+ * 存放的应用程序 的全局变量
  */
 public class ApplicationContext {
     private static final ClassPathXmlApplicationContext classPathXmlApplicationContext =
             new ClassPathXmlApplicationContext(new String[]{"classpath:crawler-spring-mybatis.xml"});
-    public static boolean debug = false;
-    public static boolean isColony = false;
+    public static boolean debug = false;//如果是DEBUG 用webDriver会使用谷歌浏览器
+    public static boolean isColony = false;//如果是集群会使用Redis的容器实现
     public static Cache<JobCrawler,Script> scriptCache = (Cache<JobCrawler, Script>)
             getBean("nativeScriptCache");//脚本缓存
     public static Butler<Job,Crawler> crawlerButler = new LonelyCrawlerButler();//crawler存储器

@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by duang on 2017/4/26.
+ * 爬取相关
  */
 public class PageService {
     //private Fetcher fetcher = getFetcher();

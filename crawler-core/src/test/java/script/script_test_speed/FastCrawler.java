@@ -16,13 +16,14 @@ import java.util.List;
 public class FastCrawler implements Script{
     @Override
     public List<Task> work(Crawler crawler,Job job) throws Exception {
-
         Page p = Fetch.fetch(crawler);
         List<Crawler> crawlerList = new ArrayList<>();
         for(String url : Parser.html(p.getContent()).jsoup("a").attrList("href")){
-            Crawler nc = new Crawler();
-            nc.setUrl(url);
-            crawlerList.add(nc);
+
+                Crawler nc = new Crawler();
+                nc.setUrl(url);
+                crawlerList.add(nc);
+
         }
         List<Task> tasks = new ArrayList<>();
         tasks.add(new Task(crawlerList,new FastCrawler()));

@@ -75,7 +75,9 @@ public class ImgList implements Script {
             }
             map.put("imageList",imageURLList);
             map.put("_crawler_date", DateUtils.dateConvertToString(new Date(),"yyyy-MM-dd HH:mm:ss"));
-            map.put("userId", crawler.get("userId").toString());
+            if(crawler.get("userId")!=null) {
+                map.put("userId", crawler.get("userId").toString());
+            }
             //map.put("userName", crawler.get("userName").toString());
             dbList.add(map);
         }

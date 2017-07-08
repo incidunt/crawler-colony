@@ -10,6 +10,7 @@ import java.io.IOException;
 
 /**
  * Created by mi on 2017/5/9.
+ * 对脚本开放的爬取类 所有的爬取操作都调用本类静态方法
  */
 public class Fetch {
     private static WebDriverPool webDriverPool = null;

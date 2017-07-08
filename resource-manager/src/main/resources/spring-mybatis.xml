@@ -11,17 +11,12 @@
 
 
 
-	<bean
-			class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<!--<property name="ignoreUnresolvablePlaceholders" value="true" />-->
-		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
-		<property name="locations">
-			<list>
-				<value>classpath*:db.properties</value>
-				<value>classpath*:sysconfig.properties</value>
-			</list>
-		</property>
-	</bean>
+
+	<!-- Wangyin-Pool数据源的配置 -->
+	<!-- <bean id="dataSource" class="com.wangyin.commons.cp.WangyinCPDataSource">
+		<property name="propertiesLocation" value="classpath:db.properties" />
+	</bean>-->
+	<!---->
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>

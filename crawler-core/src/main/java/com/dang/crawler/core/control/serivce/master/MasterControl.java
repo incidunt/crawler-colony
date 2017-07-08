@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 
 /**
  * Created by dang on 17-5-10.
+ * 负责Master的启动
  */
 @Service
 public class MasterControl implements Runnable {
@@ -25,11 +26,11 @@ public class MasterControl implements Runnable {
             Thread thread = new Thread(jobTimerThread);
             thread.setName("JobTimerThread");
             thread.start();
-        }else {//几圈
+        }else {//集群
             zkMaster();
         }
     }
-
+    //集群的启动
     private void zkMaster() {
         LeaderSelector leaderSelector = new LeaderSelector(CuratorUtils.getClient(), "/master", new LeaderSelectorListenerAdapter() {
             @Override

@@ -16,8 +16,8 @@ public class FiddlerTool {
     public static void main(String []args) throws IOException {
        fiddler();
     }
-    static String url = "https://www.ddzrh.com/front/account/hasMobileExist?telephone=17060910209";
-    static String body = "";
+    static String url = "http://www.dingdingjinfu.com/newUser/checkPhoneOrMail.ding";
+    static String body = "param=17060910207";
     static String header="";
     private static void fiddler() throws IOException {
         Crawler crawler = new Crawler(url,body);

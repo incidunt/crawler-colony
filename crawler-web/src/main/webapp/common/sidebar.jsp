@@ -7,6 +7,11 @@
 <div class="sidebar" id="sidebar">
     <script type="text/javascript">
         try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+        function load(id,url) {
+            $("#menu").children().removeClass("active");
+            $(id).addClass('active');
+            document.getElementById("myiframe").src=url;
+        }
     </script>
 
     <div class="sidebar-shortcuts" id="sidebar-shortcuts">
@@ -39,18 +44,24 @@
         </div>
     </div><!-- #sidebar-shortcuts -->
 
-    <ul class="nav nav-list">
+    <ul class="nav nav-list" id="menu">
         <li id="menu-console">
-            <a href="../common/index.jsp">
+            <a onclick="load('#menu-console','/common/view.html')">
                 <i class="icon-dashboard"></i>
                 <span class="menu-text"> 控制台 </span>
             </a>
         </li>
 
         <li id="menu-job-list">
-            <a href="/job/list.action">
+            <a  onclick="load('#menu-job-list','/job/list.action')">
                 <i class="icon-list"></i>
                 <span class="menu-text"> 任务列表 </span>
+            </a>
+        </li>
+        <li id="menu-job-add">
+            <a  onclick="load('#menu-job-add','/job/add.jsp')">
+                <i class="icon-list"></i>
+                <span class="menu-text"> 提交Job</span>
             </a>
         </li>
 

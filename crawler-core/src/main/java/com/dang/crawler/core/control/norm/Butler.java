@@ -4,6 +4,7 @@ import java.util.Collection;
 
 /**
  * Created by dang on 17-5-10.
+ * 容器
  */
 public interface Butler<KEY,VALUE>{
     boolean  put(KEY key,VALUE value);

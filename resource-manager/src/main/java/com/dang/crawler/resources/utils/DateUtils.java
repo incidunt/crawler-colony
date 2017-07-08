@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by dangqihe on 2017/3/23.
+ * 时间Utils
  */
 public class DateUtils {
     public static String convertDate(String crawlTime, String cleanBefore){

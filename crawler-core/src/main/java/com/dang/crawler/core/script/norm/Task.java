@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Created by dang on 2017/5/3.
+ * 脚本的返回值
  */
 public class Task {
     private List<Crawler> crawlerList = new ArrayList<>();

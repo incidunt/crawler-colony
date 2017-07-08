@@ -1,5 +1,7 @@
 package com.dang.crawler.resources.mysql.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -10,6 +12,7 @@ public class CrawlerJob {
     private String jobId;
     private String name;
     private int period;//周期
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date nextStartDate;
     private String status;
     private int priority;
@@ -17,6 +20,7 @@ public class CrawlerJob {
     private String note;
     private int projectId;
     private int sourceId;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDate;
 
     ////////////////////////////////////////////////////
@@ -62,11 +66,9 @@ public class CrawlerJob {
     public void setPeriod(int period) {
         this.period = period;
     }
-
     public Date getNextStartDate() {
         return nextStartDate;
     }
-
     public void setNextStartDate(Date nextStartDate) {
         this.nextStartDate = nextStartDate;
     }
@@ -127,14 +129,16 @@ public class CrawlerJob {
         this.maxThread = maxThread;
     }
 
+
     @Override
     public String toString() {
         return "CrawlerJob{" +
-                "jobId='" + jobId + '\'' +
+                "id=" + id +
+                ", jobId='" + jobId + '\'' +
                 ", name='" + name + '\'' +
                 ", period=" + period +
                 ", nextStartDate=" + nextStartDate +
-                ", status=" + status +
+                ", status='" + status + '\'' +
                 ", priority=" + priority +
                 ", maxThread=" + maxThread +
                 ", note='" + note + '\'' +

@@ -6,7 +6,7 @@
          version="3.0">
   <display-name>crawler-web Web Application</display-name>
   <welcome-file-list>
-    <welcome-file>/dev.jsp</welcome-file>
+    <welcome-file>/common/main.jsp</welcome-file>
   </welcome-file-list>
 
   <!--配置springmvc DispatcherServlet-->

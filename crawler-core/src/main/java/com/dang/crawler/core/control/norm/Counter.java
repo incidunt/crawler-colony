@@ -3,6 +3,7 @@ package com.dang.crawler.core.control.norm;
 
 /**
  * Created by mi on 2017/5/12.
+ *计数器
  */
 public interface Counter<KEY,NAME,VALUE> {
     VALUE update(KEY key,NAME name,VALUE count);

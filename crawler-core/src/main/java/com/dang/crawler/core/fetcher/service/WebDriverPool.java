@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 /**
  * Created by dang on 17-5-10.
+ * webDriver资源池
  */
 public class WebDriverPool extends RevolPool<WebDriver> {
 

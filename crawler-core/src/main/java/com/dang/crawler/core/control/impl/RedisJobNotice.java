@@ -9,6 +9,7 @@ import redis.clients.jedis.Jedis;
 
 /**
  * Created by dang on 17-6-2.
+ * Redis  job公示器
  */
 public class RedisJobNotice implements Notice<Job,Job> {
     private final String KEY = "jobNotice";

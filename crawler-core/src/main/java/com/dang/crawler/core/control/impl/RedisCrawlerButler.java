@@ -14,6 +14,7 @@ import java.util.Collection;
 
 /**
  * Created by dang on 17-6-2.
+ * Redis crawler存储器
  */
 public class RedisCrawlerButler implements Butler<Job,Crawler> {
     private static Logger log = LoggerFactory.getLogger(RedisCrawlerButler.class);

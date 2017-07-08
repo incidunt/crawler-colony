@@ -1,6 +1,5 @@
 package com.dang.crawler.core.serivce;
 
-import com.dang.crawler.core.control.bean.Crawler;
 import com.dang.crawler.core.parser.utils.RegexUtils;
 import com.dang.crawler.core.script.annotation.JobInfo;
 import com.dang.crawler.core.script.annotation.JobInfoUtil;

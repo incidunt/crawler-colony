@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 /**
  * Created by dang on 2017/5/12.
+ * 对脚本开放的DB工具,脚本所有的DB操作都调用本类静态方法
  */
 public class DB {
     private static Logger log = LoggerFactory.getLogger(DB.class);

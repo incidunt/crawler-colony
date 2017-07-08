@@ -20,4 +20,9 @@ public class CrawlerLogMapperTest {
         CrawlerLog crawlerLog = new CrawlerLog("sss","ttt",1111L);
         crawlerLogMapper.insert(crawlerLog);
     }
+    @Test
+    public void testUpdate(){
+        CrawlerLog crawlerLog = new CrawlerLog("sss","ttt",1111L);
+        crawlerLogMapper.update(crawlerLog);
+    }
 }

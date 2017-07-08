@@ -3,7 +3,9 @@ package com.dang.crawler.resources.utils;
 
 
 import java.util.BitSet;
-
+/**
+ * 简单的Bloom过滤器
+ * */
 public class BloomFilter {
     /* BitSet初始分配2^24个bit */
     private static final int DEFAULT_SIZE = 1<<24;

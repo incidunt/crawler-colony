@@ -4,6 +4,7 @@ import com.dang.crawler.core.control.bean.Job;
 
 /**
  * Created by dang on 17-5-15.
+ * Job计数器
  */
 public interface JobCounter extends Counter<Job,String,Integer>  {
     enum Name {

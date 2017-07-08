@@ -13,6 +13,7 @@ import java.util.Set;
 
 /**
  * Created by dang on 17-6-2.
+ * Redis job计数器
  */
 public class RedisJobCounter implements JobCounter {
     private CrawlerLogMapper crawlerLogMapper;

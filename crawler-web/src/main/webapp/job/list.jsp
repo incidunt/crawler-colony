@@ -1,5 +1,6 @@
 <%@page language="java" import="java.util.*" contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -7,24 +8,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>控制台</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- basic styles -->
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../assets/css/font-awesome.min.css" />
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css"/>
     <!--[if IE 7]>
-    <link rel="stylesheet" href="../assets/css/font-awesome-ie7.min.css" />
+    <link rel="stylesheet" href="../assets/css/font-awesome-ie7.min.css"/>
     <![endif]-->
     <!-- page specific plugin styles -->
     <!-- fonts -->
     <%--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />--%>
     <!-- ace styles -->
-    <link rel="stylesheet" href="../assets/css/ace.min.css" />
-    <link rel="stylesheet" href="../assets/css/ace-rtl.min.css" />
-    <link rel="stylesheet" href="../assets/css/ace-skins.min.css" />
+    <link rel="stylesheet" href="../assets/css/ace.min.css"/>
+    <link rel="stylesheet" href="../assets/css/ace-rtl.min.css"/>
+    <link rel="stylesheet" href="../assets/css/ace-skins.min.css"/>
     <!--[if lte IE 8]>
-    <link rel="stylesheet" href="../assets/css/ace-ie.min.css" />
+    <link rel="stylesheet" href="../assets/css/ace-ie.min.css"/>
     <![endif]-->
     <!-- inline styles related to this page -->
     <!-- ace settings handler -->
@@ -36,306 +37,149 @@
     <![endif]-->
     <script src="../assets/js/jquery-2.0.3.min.js"/>
     <script type="text/javascript">
-        window.jQuery || document.write("<script src='../assets/js/jquery-2.0.3.min.js'>"+"<"+"script>");
+        window.jQuery || document.write("<script src='../assets/js/jquery-2.0.3.min.js'>" + "<" + "script>");
     </script>
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             $('#menu-job-list').addClass('active');
         });
+        function toEdit(jobId) {
+
+        }
     </script>
 </head>
 
 <body>
-    <jsp:include page="../common/top.jsp"/>
-<div class="main-container" id="main-container">
+
+<div class="breadcrumbs" id="breadcrumbs">
     <script type="text/javascript">
-        try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+        try {
+            ace.settings.check('breadcrumbs', 'fixed')
+        } catch (e) {
+        }
     </script>
 
-    <div class="main-container-inner">
-        <a class="menu-toggler" id="menu-toggler" href="#">
-            <span class="menu-text"></span>
-        </a>
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home home-icon"></i>
+            <a href="#">首页</a>
+        </li>
+        <li class="active">任务列表</li>
+    </ul><!-- .breadcrumb -->
 
-       <jsp:include page="../common/sidebar.jsp"/>
-
-        <div class="main-content">
-            <div class="breadcrumbs" id="breadcrumbs">
-                <script type="text/javascript">
-                    try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
-                </script>
-
-                <ul class="breadcrumb">
-                    <li>
-                        <i class="icon-home home-icon"></i>
-                        <a href="#">Home</a>
-                    </li>
-
-                    <li>
-                        <a href="#">Tables</a>
-                    </li>
-                    <li class="active">Simple &amp; Dynamic</li>
-                </ul><!-- .breadcrumb -->
-
-                <div class="nav-search" id="nav-search">
-                    <form class="form-search">
+    <div class="nav-search" id="nav-search">
+        <form class="form-search">
 								<span class="input-icon">
-									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+									<input type="text" placeholder="Search ..." class="nav-search-input"
+                                           id="nav-search-input" autocomplete="off"/>
 									<i class="icon-search nav-search-icon"></i>
 								</span>
-                    </form>
-                </div><!-- #nav-search -->
-            </div>
-
-            <div class="page-content">
-                <div class="page-header">
-                    <h1>
-                        Tables
-                        <small>
-                            <i class="icon-double-angle-right"></i>
-                            Static &amp; Dynamic Tables
-                        </small>
-                    </h1>
-                </div><!-- /.page-header -->
-
-                <div class="row">
-                    <div class="col-xs-12">
-                        <!-- PAGE CONTENT BEGINS -->
-
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="table-responsive">
-                                    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th class="center">
-                                                <label>
-                                                    <input type="checkbox" class="ace" />
-                                                    <span class="lbl"></span>
-                                                </label>
-                                            </th>
-                                            <th>Job ID</th>
-                                            <th>Job Name</th>
-                                            <th>周期</th>
-                                            <th>
-                                                <i class="icon-time bigger-110">下次执行日期</i>
-                                            </th>
-                                            <th class="hidden-480">优先级</th>
-                                            <th class="hidden-480">线程数</th>
-                                            <th class="hidden-480">Status</th>
+        </form>
+    </div><!-- #nav-search -->
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="table-responsive">
+            <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Job ID</th>
+                    <th>Job Name</th>
+                    <th>周期</th>
+                    <th>
+                        <i class="icon-time bigger-110">下次执行日期</i>
+                    </th>
+                    <th class="hidden-480">优先级</th>
+                    <th class="hidden-480">线程数</th>
+                    <th class="hidden-480">Status</th>
 
 
-                                            <th></th>
-                                        </tr>
-                                        </thead>
+                    <th></th>
+                </tr>
+                </thead>
 
-                                        <tbody>
-                                        <c:forEach items="${crawlerJobList}" var="i" >
-                                            <tr>
-                                            <td class="center">
-                                                <label>
-                                                    <input type="checkbox" class="ace" />
-                                                    <span class="lbl"></span>
-                                                </label>
-                                            </td>
+                <tbody>
+                <c:forEach items="${crawlerJobList}" var="i">
+                        <td><c:out value="${i.jobId}"/></td>
+                        <td><c:out value="${i.name}"/></td>
+                        <td><fmt:formatNumber value="${(i.period/(1000*60*60*24))}" type="NUMBER" maxFractionDigits="0"></fmt:formatNumber>D
+                            <fmt:formatNumber value="${(i.period%(1000*60*60*24))/(1000*60*60)}" type="NUMBER" maxFractionDigits="0"></fmt:formatNumber>:
+                            <fmt:formatNumber value="${(i.period%(1000*60*60))/(1000*60)}" type="NUMBER" maxFractionDigits="0"></fmt:formatNumber>:
+                            <fmt:formatNumber value="${(i.period%(1000*60))/(1000)}" type="NUMBER" maxFractionDigits="0"></fmt:formatNumber>
+                        </td>
+                        <td><fmt:formatDate value="${i.nextStartDate}" type="both" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                        <td><c:out value="${i.priority}"/></td>
+                        <td><c:out value="${i.maxThread}"/></td>
+                        <td class="hidden-480">
+                            <c:if test='${i.status=="run"}'><span class="label label-sm label-success">${i.status}</span></c:if>
+                            <c:if test='${i.status=="off"}'><span class="label label-sm label-inverse arrowed-in">${i.status}</span></c:if>
+                            <c:if test='${i.status=="standby"}'><span class="label label-sm label-info">${i.status}</span></c:if>
+                            <c:if test='${i.status=="stopped"}'><span class="label label-sm label-danger">${i.status}</span></c:if>
+                        </td>
 
-                                            <td><c:out value="${i.jobId}"/></td>
-                                            <td><c:out value="${i.name}"/></td>
-                                            <td><c:out value="${(i.period/(1000*60*60*24))}"/>D</td>
-                                            <td><c:out value="${i.nextStartDate}"/></td>
-                                            <td><c:out value="${i.priority}"/></td>
-                                            <td><c:out value="${i.maxThread}"/></td>
-                                            <td>
-                                                <span class="label label-sm label-warning"><c:out value="${i.status}"/></span>
-                                            </td>
+                        <td>
+                            <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
+                                <button class="btn btn-xs btn-success" onclick="stat">
+                                    <i class="icon-ok bigger-120"></i>
+                                </button>
 
-                                            <td>
-                                                <div class="visible-md visible-lg hidden-sm hidden-xs btn-group">
-                                                    <button class="btn btn-xs btn-success">
-                                                        <i class="icon-ok bigger-120"></i>
-                                                    </button>
+                                <button class="btn btn-xs btn-info" onclick="window.location.href='edit.action?jobId=${i.jobId}'">
+                                    <i class="icon-edit bigger-120"></i>
+                                </button>
 
-                                                    <button class="btn btn-xs btn-info">
-                                                        <i class="icon-edit bigger-120"></i>
-                                                    </button>
+                                <button class="btn btn-xs btn-danger">
+                                    <i class="icon-trash bigger-120"></i>
+                                </button>
 
-                                                    <button class="btn btn-xs btn-danger">
-                                                        <i class="icon-trash bigger-120"></i>
-                                                    </button>
+                                <button class="btn btn-xs btn-warning">
+                                    <i class="icon-flag bigger-120"></i>
+                                </button>
+                            </div>
 
-                                                    <button class="btn btn-xs btn-warning">
-                                                        <i class="icon-flag bigger-120"></i>
-                                                    </button>
-                                                </div>
+                            <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                <div class="inline position-relative">
+                                    <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <i class="icon-cog icon-only bigger-110"></i>
+                                    </button>
 
-                                                <div class="visible-xs visible-sm hidden-md hidden-lg">
-                                                    <div class="inline position-relative">
-                                                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
-                                                            <i class="icon-cog icon-only bigger-110"></i>
-                                                        </button>
-
-                                                        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
-                                                            <li>
-                                                                <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
+                                    <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+                                        <li>
+                                            <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
 																				<span class="blue">
 																					<i class="icon-zoom-in bigger-120"></i>
 																				</span>
-                                                                </a>
-                                                            </li>
+                                            </a>
+                                        </li>
 
-                                                            <li>
-                                                                <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
+                                        <li>
+                                            <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
 																				<span class="green">
 																					<i class="icon-edit bigger-120"></i>
 																				</span>
-                                                                </a>
-                                                            </li>
+                                            </a>
+                                        </li>
 
-                                                            <li>
-                                                                <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
+                                        <li>
+                                            <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
 																				<span class="red">
 																					<i class="icon-trash bigger-120"></i>
 																				</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        </c:forEach>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </c:forEach>
 
-                                        </tbody>
-                                    </table>
-                                </div><!-- /.table-responsive -->
-                            </div><!-- /span -->
-                        </div><!-- /row -->
-
-                        <div class="hr hr-18 dotted hr-double"></div>
+                </tbody>
+            </table>
+        </div><!-- /.table-responsive -->
+    </div><!-- /span -->
+</div><!-- /row -->
 
 
-                        <div id="modal-table" class="modal fade" tabindex="-1">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header no-padding">
-                                        <div class="table-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                                <span class="white">&times;</span>
-                                            </button>
-                                            Results for "Latest Registered Domains
-                                        </div>
-                                    </div>
-
-                                    <div class="modal-body no-padding">
-                                        <table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-                                            <thead>
-                                            <tr>
-                                                <th>Domain</th>
-                                                <th>Price</th>
-                                                <th>Clicks</th>
-
-                                                <th>
-                                                    <i class="icon-time bigger-110"></i>
-                                                    Update
-                                                </th>
-                                            </tr>
-                                            </thead>
-
-                                            <tbody>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">ace.com</a>
-                                                </td>
-                                                <td>$45</td>
-                                                <td>3,330</td>
-                                                <td>Feb 12</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <a href="#">base.com</a>
-                                                </td>
-                                                <td>$35</td>
-                                                <td>2,595</td>
-                                                <td>Feb 18</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <a href="#">max.com</a>
-                                                </td>
-                                                <td>$60</td>
-                                                <td>4,400</td>
-                                                <td>Mar 11</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <a href="#">best.com</a>
-                                                </td>
-                                                <td>$75</td>
-                                                <td>6,500</td>
-                                                <td>Apr 03</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <a href="#">pro.com</a>
-                                                </td>
-                                                <td>$55</td>
-                                                <td>4,250</td>
-                                                <td>Jan 21</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                    <div class="modal-footer no-margin-top">
-                                        <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
-                                            <i class="icon-remove"></i>
-                                            Close
-                                        </button>
-
-                                        <ul class="pagination pull-right no-margin">
-                                            <li class="prev disabled">
-                                                <a href="#">
-                                                    <i class="icon-double-angle-left"></i>
-                                                </a>
-                                            </li>
-
-                                            <li class="active">
-                                                <a href="#">1</a>
-                                            </li>
-
-                                            <li>
-                                                <a href="#">2</a>
-                                            </li>
-
-                                            <li>
-                                                <a href="#">3</a>
-                                            </li>
-
-                                            <li class="next">
-                                                <a href="#">
-                                                    <i class="icon-double-angle-right"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- PAGE CONTENT ENDS -->
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.page-content -->
-        </div><!-- /.main-content -->
-
-      <jsp:include page="../common/settings.jsp"/>
-    </div><!-- /.main-container-inner -->
-
-    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-        <i class="icon-double-angle-up icon-only bigger-110"></i>
-    </a>
 </div><!-- /.main-container -->
 
 <!-- basic scripts -->
@@ -353,19 +197,19 @@
 <!--[if !IE]> -->
 
 <script type="text/javascript">
-    window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+    window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>" + "<" + "/script>");
 </script>
 
 <!-- <![endif]-->
 
 <!--[if IE]>
 <script type="text/javascript">
-    window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+    window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>" + "<" + "/script>");
 </script>
 <![endif]-->
 
 <script type="text/javascript">
-    if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+    if ("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
 </script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/typeahead-bs2.min.js"></script>
@@ -383,19 +227,20 @@
 <!-- inline scripts related to this page -->
 
 <script type="text/javascript">
-    jQuery(function($) {
-        var oTable1 = $('#sample-table-2').dataTable( {
+    jQuery(function ($) {
+        var oTable1 = $('#sample-table-2').dataTable({
             "aoColumns": [
-                { "bSortable": false },
-                null, null,null, null, null,
-                { "bSortable": false }
-            ] } );
+                {"bSortable": false},
+                null, null, null, null, null,
+                {"bSortable": false}
+            ]
+        });
 
 
-        $('table th input:checkbox').on('click' , function(){
+        $('table th input:checkbox').on('click', function () {
             var that = this;
             $(this).closest('table').find('tr > td:first-child input:checkbox')
-                .each(function(){
+                .each(function () {
                     this.checked = that.checked;
                     $(this).closest('tr').toggleClass('selected');
                 });
@@ -413,11 +258,13 @@
             var off2 = $source.offset();
             var w2 = $source.width();
 
-            if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+            if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
             return 'left';
         }
     })
 </script>
-<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+<div style="display:none">
+    <script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script>
+</div>
 </body>
 </html>

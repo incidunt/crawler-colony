@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 
 /**
  * Created by mi on 2017/5/3.
+ * webDriver工厂
  */
 public class WebDriverFactory {
 

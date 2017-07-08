@@ -12,5 +12,6 @@ public interface CrawlerJobMapper {
     void delete(String jobId);
     void update(CrawlerJob crawlerJob);
     CrawlerJob select(CrawlerJob crawlerJob);
+    CrawlerJob load(CrawlerJob crawlerJob);
     List<CrawlerJob> list(CrawlerJob crawlerJob);
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by dangqihe on 2016/12/2.
+ * 数据转换
  */
 public class DataTypeUtils{
     //public static <T> void sort(T[] a, Comparator<? super T> c)

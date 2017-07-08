@@ -10,9 +10,11 @@
 	</appender>
 
 
-	<appender name="logic" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" value="/home/Files/crawler-web/log/logic.log"/>
-		<param name="Append" value="false"/>
+	<appender name="logic" class="org.apache.log4j.RollingFileAppender"><!--org.apache.log4j.DailyRollingFileAppender 按天-->
+		<param name="File" value="/home/work/bin/crawler-conlony/log/logic.log"/>
+		<param name="MaxFileSize" value="1GB"/>
+		<param name="MaxBackupIndex" value="10"/><!--只保存10个 -->
+		<param name="Append" value="true"/>
 		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
 		<param name="threshold" value="DEBUG"/>
 		<layout class="org.apache.log4j.PatternLayout">
