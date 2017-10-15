@@ -21,7 +21,7 @@ public class Discern implements Script {
         Page page = Fetch.fetch(crawler);
         Map map = new HashMap();
         map.put("phone",crawler.get("phone"));
-        map.put("source","xhx_exjr");
+        map.put("source",job.getJobId());
         String html = page.getContent();
         log.info(html);
         if(html.contains("输入的用户不存在")){

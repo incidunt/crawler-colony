@@ -21,7 +21,7 @@ public class Discern implements Script {
         Page page = Fetch.fetch(crawler);
         Map map = new HashMap();
         map.put("phone",crawler.get("phone"));
-        map.put("source","178wangdai");
+        map.put("source",job.getJobId());
         String result = page.getContent().trim();
         if(result.trim().equals("\"4\"")){
             map.put("registered","0");

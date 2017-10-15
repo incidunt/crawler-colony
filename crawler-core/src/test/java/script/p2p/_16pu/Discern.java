@@ -21,7 +21,7 @@ public class Discern implements Script {
         Page page = Fetch.fetch(crawler);
         Map map = new HashMap();
         map.put("phone",crawler.get("phone"));
-        map.put("source","16pu");
+        map.put("source",job.getJobId());
         String result = page.getContent().trim();
         JSONObject json = JSONObject.parseObject(result);
         if(json.getString("rmsg").contains("该手机号码未注册")){

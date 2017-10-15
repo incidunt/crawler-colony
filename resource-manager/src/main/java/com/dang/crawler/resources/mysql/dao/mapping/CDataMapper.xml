@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dang.crawler.resources.mysql.dao.CdataMapper" >
+  <resultMap id="BaseResultMap" type="com.dang.crawler.resources.mysql.model.Cdata" >
+    <id column="jobId" property="jobId"  />
+    <id column="ckey" property="ckey"  />
+    <result column="date" property="date"  />
+    <result column="cdata" property="cdata" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name
+  </sql>
+
+  <insert id="insert"  parameterType="com.dang.crawler.resources.mysql.model.Cdata">
+    INSERT INTO crawler_data (jobId , ckey  , date , cdata) VALUES
+                      (#{jobId},#{ckey},now(),#{cdata})
+  </insert>
+  <insert id="insertAll"  useGeneratedKeys="true" parameterType="java.util.List">
+    <!--<selectKey resultType="long" keyProperty="kid" order="AFTER">-->
+      <!--SELECT-->
+      <!--LAST_INSERT_ID()-->
+    <!--</selectKey>-->
+    INSERT INTO crawler_data (jobId , ckey  , date , cdata) VALUES
+    <foreach collection="list" item="item" index="index" separator="," >
+      (#{item.jobId},#{item.ckey},now(),#{item.cdata})
+    </foreach>
+  </insert>
+
+  <select id="select"  parameterType="com.dang.crawler.resources.mysql.model.Cdata" resultMap="BaseResultMap">
+    select * from crawler_data where jobId = #{jobId}
+    <if test="ckey !=null">and ckey = #{ckey}</if>
+    <if test="date">and date = #{date}</if>
+    <if test="cdata !=null">data = #{cdata}</if>
+  </select>
+
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dang.crawler.resources.mysql.dao.TableMapper" >
+  <resultMap id="BaseResultMap" type="com.dang.crawler.resources.mysql.model.Table" >
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name
+  </sql>
+  <insert id="tryCreate" parameterType="com.dang.crawler.resources.mysql.model.Table">
+    create table if not exists ${name}
+    <foreach collection="keys" item="k" index="index" open="(" separator="," close=",">
+      ${k} text
+    </foreach>
+    _createDate datetime);
+  </insert>
+
+  <insert id="insert" parameterType="com.dang.crawler.resources.mysql.model.Table" statementType="STATEMENT">
+    insert into ${name}
+    <foreach collection="keys" item="k" index="index" open="(" separator="," close=",">
+      ${k}
+    </foreach>_createDate)
+    values
+    <foreach collection="mapList" item="map" index="i" separator=",">
+      <foreach collection="keys" item="k" index="index" open="(" separator="," close=",">
+        '${map[k]}'
+      </foreach>now() )
+    </foreach>
+  </insert>
+
+</mapper>

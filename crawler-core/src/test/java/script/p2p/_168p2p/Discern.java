@@ -22,7 +22,7 @@ public class Discern implements Script {
         Page page = Fetch.fetch(crawler);
         Map map = new HashMap();
         map.put("phone",crawler.get("phone"));
-        map.put("source","168p2p");
+        map.put("source",job.getJobId());
         String result = page.getContent().trim();
         JSONObject json = JSONObject.parseObject(result);
         if(json.getInteger("flag").equals(0)){

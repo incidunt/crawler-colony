@@ -25,8 +25,9 @@ public class Init implements Script {
         List<Crawler> crawlerList = new ArrayList<>();
         for(Keyword keyword : DB.getKeyWorld(0,100,crawler,job)){
             Crawler newCrawler = new Crawler();
-            newCrawler.setUrl("https://www.51rzy.com/Ajax/CheckRegisterInfo");
-            newCrawler.setBody("lei=Mobile&userinfo="+keyword.getKeyword());
+            newCrawler.setUrl("https://www.51rzy.com/Ajax/CheFindUserName");
+            newCrawler.setBody("userUpdatePwdInfo="+keyword.getKeyword());
+            newCrawler.put("phone",keyword.getKeyword());
             crawlerList.add(newCrawler);
         }
         ArrayList<Task> results = new ArrayList<Task>();

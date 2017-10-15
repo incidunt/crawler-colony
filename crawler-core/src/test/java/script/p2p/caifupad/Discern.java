@@ -22,8 +22,7 @@ public class Discern implements Script {
         Page page = Fetch.fetch(crawler);
         Map map = new HashMap();
         map.put("phone",crawler.get("phone"));
-        map.put("source","caifupad");
-        log.info(page.getContent());
+        map.put("source",job.getJobId());
         JSONObject json = Parser.json(page.getContent());
         if(json.getString("info").equals("手机号不存在")){
             map.put("registered","0");
