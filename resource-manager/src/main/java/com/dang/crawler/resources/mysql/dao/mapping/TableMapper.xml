@@ -23,7 +23,8 @@
     values
     <foreach collection="mapList" item="map" index="i" separator=",">
       <foreach collection="keys" item="k" index="index" open="(" separator="," close=",">
-        '${map[k]}'
+        <if test="map[k] != null"> '${map[k]}'</if>
+        <if test="map[k] == null">'' </if>
       </foreach>now() )
     </foreach>
   </insert>

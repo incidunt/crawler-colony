@@ -23,7 +23,7 @@ public class TableMapperTest {
     }
     public Table getTable(){
         Table table = new Table("test_table");
-        table.put("a", "safd");
+        table.put("a", null);
         table.put("b", "dsjaf");
         table.put("c", "123456");
         table.put("d", "风景的撒娇房顶上经费等快速拉进房间空间上");
@@ -44,7 +44,7 @@ public class TableMapperTest {
         Table table = new Table("test_table");
         for(int i=0;i<10;i++) {
             Map map = new HashMap();
-            map.put("a", "safd"+i);
+            map.put("a",null);
             map.put("b", "dsjaf"+i);
             map.put("c", "123456"+i);
             map.put("d", "风景的撒娇房顶上经费等快速拉进房间空间上"+i);

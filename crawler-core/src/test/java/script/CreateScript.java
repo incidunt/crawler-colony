@@ -15,11 +15,11 @@ import java.util.List;
  * 其中Job的Job相关的信息,List是源码
  */
 public class CreateScript {
-    private static String JOB_ID = "script_test_speed";
+    private static String JOB_ID = "douban.main";
     private static int PROJECT_ID = 2;
-    private static int MAX_THREAD =5;
+    private static int MAX_THREAD =1;
     private static String JOB_NAME = JOB_ID;
-    private static int JOB_PERIOD = 5*24*60*60*1000;
+    private static int JOB_PERIOD = 5*24*60*60*1000;        // 周期
     private static JobTaskService jobTaskService = null;
     public static void main(String []args) throws Exception {
         jobTaskService = (JobTaskService) new ApplicationContext().getBean("jobTaskService");

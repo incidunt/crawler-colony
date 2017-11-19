@@ -11,11 +11,11 @@ public class CrawlerJob {
     private int id;
     private String jobId;
     private String name;
-    private int period;//周期
+    private int period; // 周期
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date nextStartDate;
     private String status;
-    private int priority;
+    private int priority;   // 优先级
     private int maxThread;
     private String note;
     private int projectId;

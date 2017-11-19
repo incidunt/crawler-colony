@@ -28,7 +28,7 @@ import java.util.Map;
 public class DB {
     private static Logger log = LoggerFactory.getLogger(DB.class);
     private static DBInterface mongDB = new MongDB();
-    private static DBInterface mySQL = new MySQL();
+    private static DBInterface mySQL =new MongDB();
     public static void saveFile(String path,byte[] bytes){
         try {
             FileUtils.save(PropertiesUtils.getProperty("file.output.base.path")+path,bytes,false);
