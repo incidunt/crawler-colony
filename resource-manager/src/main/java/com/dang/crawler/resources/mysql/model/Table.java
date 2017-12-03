@@ -21,7 +21,9 @@ public class Table {
         return this;
     }
     public Table add(Map map){
-        mapList.add(map);
+        if(map.size()!= 0) {
+            mapList.add(map);
+        }
         return this;
     }
     public Table addAll(List list){

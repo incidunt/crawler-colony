@@ -22,11 +22,15 @@
     </foreach>_createDate)
     values
     <foreach collection="mapList" item="map" index="i" separator=",">
-      <foreach collection="keys" item="k" index="index" open="(" separator="," close=",">
+      <foreach collection="keys" item="k" index="index" open="(" separator="," close="," >
         <if test="map[k] != null"> '${map[k]}'</if>
-        <if test="map[k] == null">'' </if>
+        <if test="map[k] == null"> NULL </if>
       </foreach>now() )
     </foreach>
   </insert>
+
+  <select id="select" parameterType="java.util.Map" resultType="java.util.Map">
+    select * from ${table} LIMIT #{limit}, #{size}
+  </select>
 
 </mapper>

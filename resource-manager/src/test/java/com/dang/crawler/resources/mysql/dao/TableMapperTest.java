@@ -55,7 +55,8 @@ public class TableMapperTest {
         tableMapper.insert(table);
     }
     @Test
-    public void testInsertAll(){
-
+    public void testSelect(){
+        List<Map<String, Object>> res = tableMapper.select("crawler_phone_list", 1, 10);
+        System.out.println(res.size());
     }
 }

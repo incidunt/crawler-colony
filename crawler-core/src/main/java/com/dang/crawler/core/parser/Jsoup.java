@@ -1,5 +1,6 @@
 package com.dang.crawler.core.parser;
 
+import com.dang.crawler.core.parser.utils.RegexUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -87,5 +88,9 @@ public class Jsoup implements Iterable<Jsoup> {
     }
     public String str(){
         return toString();
+    }
+
+    public List<String> regex(String regex) {
+        return RegexUtils.regex(regex,toString());
     }
 }

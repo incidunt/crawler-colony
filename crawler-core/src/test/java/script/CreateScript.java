@@ -15,9 +15,9 @@ import java.util.List;
  * 其中Job的Job相关的信息,List是源码
  */
 public class CreateScript {
-    private static String JOB_ID = "douban.main";
-    private static int PROJECT_ID = 2;
-    private static int MAX_THREAD =1;
+    private static String JOB_ID = "my.grade";
+    private static int PROJECT_ID = 2;      // 项目id
+    private static int MAX_THREAD =50;      //  最大线程
     private static String JOB_NAME = JOB_ID;
     private static int JOB_PERIOD = 5*24*60*60*1000;        // 周期
     private static JobTaskService jobTaskService = null;

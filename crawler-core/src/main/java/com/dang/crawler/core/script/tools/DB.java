@@ -7,18 +7,12 @@ import com.dang.crawler.core.script.tools.dbimpl.DBInterface;
 import com.dang.crawler.core.script.tools.dbimpl.MongDB;
 import com.dang.crawler.core.script.tools.dbimpl.MySQL;
 import com.dang.crawler.core.serivce.ApplicationContext;
-import com.dang.crawler.core.serivce.KeywordService;
-import com.dang.crawler.resources.mongodb.MongoDB;
 import com.dang.crawler.resources.mysql.model.Keyword;
-import com.dang.crawler.resources.utils.DateUtils;
 import com.dang.crawler.resources.utils.FileUtils;
 import com.dang.crawler.resources.utils.PropertiesUtils;
-import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 /**
@@ -28,7 +22,7 @@ import java.util.Map;
 public class DB {
     private static Logger log = LoggerFactory.getLogger(DB.class);
     private static DBInterface mongDB = new MongDB();
-    private static DBInterface mySQL =new MongDB();
+    private static DBInterface mySQL =new MySQL();
     public static void saveFile(String path,byte[] bytes){
         try {
             FileUtils.save(PropertiesUtils.getProperty("file.output.base.path")+path,bytes,false);
@@ -40,8 +34,13 @@ public class DB {
     public static void insert(String name,String key, List<Map> dbList) {
         mySQL.insert(name,key,dbList);
     }
-    public static void insert(String name,String key, Map map) {
-        mySQL.insert(name,key,map);
+    public static int insert(String name, String key, Map map) {
+        try {
+            return mySQL.insert(name, key, map);
+        }catch (Exception e){
+            log.info("数据存储错误"+map.toString());
+        }
+        return -1;
     }
 
     public static List<Keyword> getKeyWorld(int page, int szie, Crawler crawler, Job job){
