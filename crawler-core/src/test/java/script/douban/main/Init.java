@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class Init implements Script {
     public static void main(String []args) throws Exception {
+
         Init init =  new Init();
         Job job = new Job();
         job.setProjectId(2);
