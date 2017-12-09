@@ -4,7 +4,6 @@ import com.dang.crawler.core.serivce.ApplicationContext;
 import com.dang.crawler.core.serivce.JobTaskService;
 import com.dang.crawler.resources.mysql.model.CrawlerJob;
 import com.dang.crawler.resources.utils.FileUtils;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,9 +14,9 @@ import java.util.List;
  * 其中Job的Job相关的信息,List是源码
  */
 public class CreateScript {
-    private static String JOB_ID = "my.grade";
+    private static String JOB_ID = "my.dawang";
     private static int PROJECT_ID = 2;      // 项目id
-    private static int MAX_THREAD =50;      //  最大线程
+    private static int MAX_THREAD = 30;      //  最大线程
     private static String JOB_NAME = JOB_ID;
     private static int JOB_PERIOD = 5*24*60*60*1000;        // 周期
     private static JobTaskService jobTaskService = null;

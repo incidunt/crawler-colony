@@ -1,5 +1,9 @@
 package script.my.dawang;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.dang.crawler.core.control.bean.Crawler;
 import com.dang.crawler.core.control.bean.Job;
 import com.dang.crawler.core.fetcher.bean.Page;
@@ -9,8 +13,6 @@ import com.dang.crawler.core.script.norm.Task;
 import com.dang.crawler.core.script.tools.DB;
 import com.dang.crawler.core.script.tools.Fetch;
 
-import java.util.*;
-
 /**
  * Created by mi on 2017/5/17.
  */
@@ -18,65 +20,33 @@ public class Detail implements Script {
     private static Set<String> set = new HashSet<>();
     @Override
     public List<Task> work(Crawler crawler, Job job) throws Exception {
-        Page page = Fetch.fetch(crawler);
-        Map<String,String> map = new HashMap<>();
-        for(String phone :Parser.html(page.getContent()).regex("\\d{11,11}")){
-            phone = phone.trim();
-            if(set.contains(phone)){
-                continue;
-            }else {
-                set.add(phone);
+        try {
+            Page page = Fetch.fetch(crawler);
+            String grade = Parser.html(page.getContent()).jsoup(".jg1 .font1:eq(1)").toString();
+            if (grade.length() > 0) {
+                crawler.put("grade", grade);
             }
-            map.put("phone",phone);
-            map.put("grade",""+grade(phone));
-            DB.insert("phone_list2","phone",map);
+        } catch (Exception e) {
         }
+        try {
+            Page page2 = Fetch.fetch(new Crawler("http://www.bole.name/?k=" + crawler.get("phone")));
+            String grade2 = Parser.html(page2.getContent()).jsoup("#price_show").toString();
+            if (grade2.length() > 0) {
+                crawler.put("grade2", grade2);
+            }
+        } catch (Exception e) {
+
+        }
+        try {
+            Page page2 = Fetch.fetch(new Crawler("http://mobile.9om.com/188115/" + crawler.get("phone") + ".html"));
+            String grade2 = Parser.html(page2.getContent()).jsoup(".item .rows:eq(3)").regex("\\d+").get(0);
+            if (grade2.length() > 0) {
+                crawler.put("grade3", grade2);
+            }
+        } catch (Exception e) {
+        }
+
+        DB.insert("phone_list3", "phone", crawler.getInfo());
         return null;
     }
-
-
-    private static int grade(String phone) {
-        int grade = 0;
-        String[] numberStr = phone.split("");
-        int [] number = new int[11];
-        for(int i = 0 ;i<11;i++){
-            number[i] = Integer.parseInt(numberStr[i]);
-        }
-
-        int numCount[] = new int[10];
-
-        for(int i =1 ;i<number.length ; i ++){
-            numCount[number[i]]++;
-        }
-        for(int i = 0;i<numCount.length;i++){
-            grade += Math.pow(numCount[i],2)*100;  //100,400,900,1600,2500
-        }
-        grade += numCount[5]*200;
-        grade += numCount[6]*200;
-        grade += numCount[7]*200;
-        grade += numCount[8]*200;
-
-
-        // 连号
-        for(int i= 2; i< number.length ;i++){
-            if(number[i] == number[i-1]){
-                grade +=500;
-                if(number[i] == (number[i-2])){
-                    grade+=2000;
-                }
-            }
-        }
-
-        //  顺子
-        for(int i= 1; i< number.length ;i++){
-            if(number[i] +1 == number[i-1]){
-                grade += 500;
-            }
-            if(number[i] -1 == number[i-1]){
-                grade += 2000;
-            }
-        }
-        return grade;
-    }
-
 }
